@@ -1,0 +1,14 @@
+{
+  "name": "polymarket-trading-poc",
+  "version": "0.1.0",
+  "description": "Paper-trading PoC for Polymarket mispricing/arbitrage detection",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:once": "RUN_ONCE=true node src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
