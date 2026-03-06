@@ -6,7 +6,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:once": "RUN_ONCE=true node src/index.js"
+    "start:once": "RUN_ONCE=true node src/index.js",
+    "progress:start": "node scripts/progress-log.js start",
+    "progress:done": "node scripts/progress-log.js done",
+    "progress:blocked": "node scripts/progress-log.js blocked"
   },
   "engines": {
     "node": ">=20"
