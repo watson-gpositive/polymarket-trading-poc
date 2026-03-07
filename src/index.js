@@ -17,6 +17,34 @@ function categorySummary(opps) {
   return out;
 }
 
+function toPriceCents(x) {
+  const n = Number(x);
+  if (Number.isNaN(n)) return null;
+  return n <= 1 ? Math.round(n * 100) : Math.round(n);
+}
+
+function marketDiagnostics(markets, threshold) {
+  const sums = [];
+  for (const m of markets) {
+    if (!Array.isArray(m.outcomes) || m.outcomes.length !== 2) continue;
+    const p0 = toPriceCents(m.outcomes[0]?.price);
+    const p1 = toPriceCents(m.outcomes[1]?.price);
+    if (p0 == null || p1 == null) continue;
+    sums.push(p0 + p1);
+  }
+  if (!sums.length) return { pairs: 0 };
+  const under = sums.filter(s => s <= threshold).length;
+  const avg = sums.reduce((a, b) => a + b, 0) / sums.length;
+  return {
+    pairs: sums.length,
+    threshold,
+    underThresholdCount: under,
+    minSum: Math.min(...sums),
+    maxSum: Math.max(...sums),
+    avgSum: Number(avg.toFixed(2))
+  };
+}
+
 async function tick() {
   const markets = await fetchActiveMarkets(400);
   const opps = detectTwoOutcomeArb(markets, config);
@@ -51,6 +79,7 @@ async function tick() {
   const accepted = trader.onOpportunities(tradable);
   const categories = categorySummary(opps);
   const partialCount = checked.filter(x => x.sim?.partial).length;
+  const diagnostics = opps.length === 0 ? marketDiagnostics(markets, config.arbTriggerMaxTotalCents) : null;
 
   logEvent('tick_summary', {
     markets: markets.length,
@@ -59,7 +88,8 @@ async function tick() {
     tradableAfterDepth: tradable.length,
     partialSimulations: partialCount,
     accepted: accepted.length,
-    categories
+    categories,
+    diagnostics
   });
 }
 

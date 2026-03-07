@@ -78,6 +78,10 @@ function rebalance(pos, cand) {
 }
 
 async function tick() {
+  if (!config.dEnabled) {
+    logEvent('script_d_paused', { reason: 'D_ENABLED=false' });
+    return;
+  }
   tickNo += 1;
   const m = await fetchActiveMarkets(500);
   const cands = candidates(m);

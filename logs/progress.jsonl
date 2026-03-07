@@ -24,3 +24,5 @@
 {"ts":"2026-03-07T10:20:45.247Z","phase":"done","task":"kpi-wiring","details":"wired decision KPIs with simple explanations into hourly checkpoint","git":"a0d748b"}
 {"ts":"2026-03-07T13:11:41.872Z","phase":"start","task":"apply-next-actions","details":"prioritize Script C safety, tune Script D urgent hedges, and improve Script B hedge handling","git":"4ce7546"}
 {"ts":"2026-03-07T13:11:42.098Z","phase":"done","task":"apply-next-actions","details":"changes implemented and daemons restarted","git":"4ce7546"}
+{"ts":"2026-03-07T14:12:05.468Z","phase":"start","task":"post-checkpoint-tuning","details":"apply checkpoint recommendations: deprioritize D, tune C urgency, add A diagnostics","git":"2c3d0a2"}
+{"ts":"2026-03-07T14:16:34.143Z","phase":"done","task":"post-checkpoint-tuning","details":"implemented A diagnostics, C safety tuning, D low-priority tuning, and B hedge diagnostics","git":"2c3d0a2"}

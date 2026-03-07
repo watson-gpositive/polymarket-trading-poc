@@ -2,14 +2,14 @@
 > polymarket-trading-poc@0.1.0 report:decision
 > node src/hourlyDecisionReport.js
 
-[2026-03-07T10:20:37.513Z] Decision checkpoint
-KPI 1 Hedge closure rate: C=1.000 D=0.513
+[2026-03-07T14:16:17.502Z] Decision checkpoint
+KPI 1 Hedge closure rate: C=1.000 D=0.824
   meaning: πόσο συχνά ένα entry καταφέρνει να κλείσει hedge (υψηλότερο = πιο ασφαλές).
-KPI 2 Urgent hedge share: C=1.000 D=0.836
+KPI 2 Urgent hedge share: C=0.750 D=0.558
   meaning: πόσα hedges έγιναν "στο όριο" (χαμηλότερο = καλύτερη ποιότητα execution).
-KPI 3 Bankroll PnL (€5/€50/€500): C=-0.2/-1/-1 D=-7.92/-30.96/-30.96
+KPI 3 Bankroll PnL (€5/€50/€500): C=-0.4/-1.2/-1.2 D=-14.12/-92.18/-93.02
   meaning: πόσο αποδίδει η ίδια λογική σε μικρό/μεσαίο/μεγαλύτερο κεφάλαιο.
-KPI 4 Unhedged exposure time (avg min): C=2.01 D=7.83
+KPI 4 Unhedged exposure time (avg min): C=246.74 D=146.37
   meaning: πόση ώρα μένει ακάλυπτη θέση πριν κλείσει hedge (χαμηλότερο = λιγότερο ρίσκο).
 Suggestions:
 - Script C έχει καλύτερο hedge closure rate από το D.

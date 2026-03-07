@@ -55,7 +55,7 @@ function rebalance(position, c) {
   const total = position.entryPriceCents + hedgePrice;
   const p = modeParams();
   const age = tickNo - position.openTick;
-  const strictMax = Math.min(config.invHedgeMaxTotalCents, p.hedgeMax);
+  const strictMax = Math.min(config.cHedgeMaxTotalCents, p.hedgeMax);
   const dynamicMax = Math.min(104, strictMax + Math.floor(age / 2));
   const remaining = Math.max(0, position.totalShares - position.hedgedShares);
 
@@ -63,7 +63,7 @@ function rebalance(position, c) {
     position.hedgedShares += remaining;
     return { hedged: true, total, qty: remaining, closeAll: true };
   }
-  if (age >= config.v2HedgeUrgencyTicks && total <= dynamicMax) {
+  if (age >= config.cHedgeUrgencyTicks && total <= dynamicMax) {
     const qty = Math.min(remaining, config.v2RebalanceStepShares);
     position.hedgedShares += qty;
     return { hedged: true, total, qty, urgent: true, dynamicMax };
@@ -114,7 +114,8 @@ async function main() {
     cMaxOpenPositions: config.cMaxOpenPositions,
     cTargetSharesPerTrade: config.cTargetSharesPerTrade,
     v2RebalanceStepShares: config.v2RebalanceStepShares,
-    v2HedgeUrgencyTicks: config.v2HedgeUrgencyTicks
+    cHedgeMaxTotalCents: config.cHedgeMaxTotalCents,
+    cHedgeUrgencyTicks: config.cHedgeUrgencyTicks
   });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;
