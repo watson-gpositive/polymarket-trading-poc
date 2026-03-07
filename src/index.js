@@ -3,16 +3,15 @@ import { logEvent } from './utils/logger.js';
 import { fetchActiveMarkets, fetchWalletProfile } from './polymarket/client.js';
 import { detectTwoOutcomeArb } from './strategy/arbDetector.js';
 import { PaperTrader } from './engine/paperTrader.js';
+import { assessYesPairDepth } from './engine/depthCheck.js';
 
 const trader = new PaperTrader(config);
 
-function focusSummary(opps, focusCategories) {
+function categorySummary(opps) {
   const out = {};
-  for (const c of focusCategories) out[c] = 0;
   for (const o of opps) {
-    for (const c of focusCategories) {
-      if ((o.category || '').includes(c)) out[c] += 1;
-    }
+    const c = (o.category || 'unknown').toLowerCase();
+    out[c] = (out[c] || 0) + 1;
   }
   return out;
 }
@@ -20,14 +19,29 @@ function focusSummary(opps, focusCategories) {
 async function tick() {
   const markets = await fetchActiveMarkets(400);
   const opps = detectTwoOutcomeArb(markets, config);
-  const accepted = trader.onOpportunities(opps);
-  const focus = focusSummary(opps, config.focusCategories);
+
+  const checked = [];
+  for (const o of opps.slice(0, 20)) {
+    if (o.type !== 'YES_PAIR_ARB') continue;
+    try {
+      const depth = await assessYesPairDepth(o, config);
+      checked.push({ ...o, depth });
+    } catch (err) {
+      logEvent('depth_check_error', { marketId: o.marketId, error: String(err) });
+    }
+  }
+
+  const tradable = checked.filter(x => x.depth?.ok);
+  const accepted = trader.onOpportunities(tradable);
+  const categories = categorySummary(opps);
 
   logEvent('tick_summary', {
     markets: markets.length,
     opportunities: opps.length,
+    depthChecked: checked.length,
+    tradableAfterDepth: tradable.length,
     accepted: accepted.length,
-    focus
+    categories
   });
 }
 
@@ -36,7 +50,9 @@ async function main() {
     paperMode: config.paperMode,
     loopIntervalSec: config.loopIntervalSec,
     focusCategories: config.focusCategories,
-    referenceWallet: config.referenceWallet
+    referenceWallet: config.referenceWallet,
+    arbTriggerMaxTotalCents: config.arbTriggerMaxTotalCents,
+    minDepthSharesPerLeg: config.minDepthSharesPerLeg
   });
 
   const wallet = await fetchWalletProfile(config.referenceWallet);

@@ -8,6 +8,7 @@ function extractOutcomePrices(outcomes = []) {
   return outcomes
     .map(o => ({
       name: o?.name ?? o?.outcome ?? o?.title ?? 'outcome',
+      tokenId: o?.tokenId,
       yes: toPriceCents(o?.price ?? o?.yesPrice ?? o?.lastPrice),
       no: toPriceCents(o?.noPrice ?? (o?.price != null ? 100 - Number(o.price) * (o.price <= 1 ? 100 : 1) : null))
     }))
@@ -34,7 +35,11 @@ export function detectTwoOutcomeArb(markets, cfg) {
         category: m.category,
         type: 'YES_PAIR_ARB',
         sumCents: yesSum,
-        grossEdgeCents: 100 - yesSum
+        grossEdgeCents: 100 - yesSum,
+        legs: [
+          { outcome: p[0].name, tokenId: p[0].tokenId, targetPriceCents: p[0].yes },
+          { outcome: p[1].name, tokenId: p[1].tokenId, targetPriceCents: p[1].yes }
+        ]
       });
     }
 

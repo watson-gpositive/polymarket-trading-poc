@@ -22,7 +22,8 @@ function parseMaybeJsonArray(v) {
 function normalizeMarket(m) {
   const outcomeNames = parseMaybeJsonArray(m?.outcomes);
   const outcomePrices = parseMaybeJsonArray(m?.outcomePrices);
-  const outcomes = outcomeNames.map((name, i) => ({ name, price: outcomePrices[i] }));
+  const tokenIds = parseMaybeJsonArray(m?.clobTokenIds);
+  const outcomes = outcomeNames.map((name, i) => ({ name, price: outcomePrices[i], tokenId: tokenIds[i] }));
 
   const title = m?.question ?? m?.title ?? m?.slug ?? 'unknown';
   const categoryRaw = `${m?.category ?? m?.tags?.[0] ?? ''}`.toLowerCase();
@@ -52,6 +53,17 @@ export async function fetchActiveMarkets(limit = 300) {
     }
   }
   return [];
+}
+
+export async function fetchOrderBook(tokenId) {
+  if (!tokenId) return null;
+  const data = await jget(`${config.clobBase}/book?token_id=${tokenId}`);
+  return {
+    tokenId,
+    bids: Array.isArray(data?.bids) ? data.bids : [],
+    asks: Array.isArray(data?.asks) ? data.asks : [],
+    ts: data?.timestamp ?? null
+  };
 }
 
 export async function fetchWalletProfile(address) {

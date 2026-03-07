@@ -28,6 +28,7 @@ export const config = {
   minEdgeCents: toNum(process.env.MIN_EDGE_CENTS, 3),
   slippageBufferCents: toNum(process.env.SLIPPAGE_BUFFER_CENTS, 1),
   arbTriggerMaxTotalCents: toNum(process.env.ARB_TRIGGER_MAX_TOTAL_CENTS, 98),
+  minDepthSharesPerLeg: toNum(process.env.MIN_DEPTH_SHARES_PER_LEG, 50),
   marketScope: process.env.MARKET_SCOPE ?? 'all',
   focusCategories: (process.env.FOCUS_CATEGORIES ?? 'politics,crypto').split(',').map(s => s.trim()).filter(Boolean),
   gammaBase: process.env.POLY_GAMMA_BASE ?? 'https://gamma-api.polymarket.com',

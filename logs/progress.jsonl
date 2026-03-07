@@ -5,3 +5,5 @@
 {"ts":"2026-03-07T07:59:54.129Z","phase":"start","task":"paper-report-v1","details":"generate auditable paper-trading snapshot with strict/net-of-fee and near-arb metrics","git":"7ce4a80"}
 {"ts":"2026-03-07T07:59:55.110Z","phase":"done","task":"paper-report-v1","details":"paper snapshot generated at logs/paper-report-v1.json","git":"7ce4a80"}
 {"ts":"2026-03-07T08:09:34.425Z","phase":"start","task":"paper-runner-30s","details":"start continuous paper runner every 30s with 98c trigger","git":"cac24d6"}
+{"ts":"2026-03-07T08:39:27.752Z","phase":"start","task":"depth-aware-filter","details":"implement orderbook depth checks before accepting yes-pair opportunities","git":"f581ed6"}
+{"ts":"2026-03-07T08:39:31.316Z","phase":"done","task":"depth-aware-filter","details":"added depth-aware gating and verified run","git":"f581ed6"}
