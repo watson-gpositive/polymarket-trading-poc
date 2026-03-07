@@ -1,13 +1,13 @@
 {
-  "ts": "2026-03-07T09:05:00.223Z",
+  "ts": "2026-03-07T10:09:00.755Z",
   "window": {
     "firstTs": "2026-03-06T19:23:52.869Z",
-    "lastTs": "2026-03-07T09:04:47.591Z",
-    "totalRows": 261
+    "lastTs": "2026-03-07T10:08:44.908Z",
+    "totalRows": 682
   },
   "scriptA": {
     "script": "A_strict_pair_arb",
-    "ticks": 117,
+    "ticks": 245,
     "opportunities": 0,
     "depthChecked": 0,
     "tradableAfterDepth": 0,
@@ -18,29 +18,45 @@
   },
   "scriptB": {
     "script": "B_inventory_dynamic_hedge",
-    "ticks": 26,
-    "candidates": 780,
-    "depthPassed": 713,
-    "entries": 81,
+    "ticks": 154,
+    "candidates": 4620,
+    "depthPassed": 4152,
+    "entries": 82,
     "hedges": 0,
-    "openCountLast": 28,
+    "openCountLast": 29,
     "hedgedCountLast": 0,
     "avgCandidatesPerTick": 30,
-    "avgDepthPassedPerTick": 27.423076923076923,
+    "avgDepthPassedPerTick": 26.961038961038962,
     "hedgeRatePerEntry": 0
   },
-  "scriptBv2": {
-    "script": "B_v2_mimic_inventory_hedge",
-    "ticks": 7,
-    "candidates": 14,
-    "depthPassed": 7,
-    "entries": 3,
+  "scriptC": {
+    "script": "C_mimic_inventory_hedge",
+    "ticks": 1,
+    "candidates": 2,
+    "depthPassed": 1,
+    "entries": 1,
     "hedges": 0,
     "urgentHedges": 0,
     "openCountLast": 1,
     "fullyHedgedLast": 0,
     "avgCandidatesPerTick": 2,
     "avgDepthPassedPerTick": 1,
+    "hedgeRatePerEntry": 0,
+    "urgentHedgeShare": 0
+  },
+  "scriptD": {
+    "script": "D_capped_multi_category_hedge",
+    "ticks": 1,
+    "candidates": 67,
+    "depthPassed": 30,
+    "entries": 30,
+    "hedges": 0,
+    "urgentHedges": 0,
+    "skippedByCap": 32,
+    "openCountLast": 30,
+    "fullyHedgedLast": 0,
+    "avgCandidatesPerTick": 67,
+    "avgDepthPassedPerTick": 30,
     "hedgeRatePerEntry": 0,
     "urgentHedgeShare": 0
   }

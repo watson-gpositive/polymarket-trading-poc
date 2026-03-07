@@ -1,0 +1,20 @@
+{
+  "ts": "2026-03-07T10:09:01.065Z",
+  "assumptions": {
+    "bankrollEur": 5,
+    "feePct": 2,
+    "note": "paper approximation from hedge events only"
+  },
+  "scriptC": {
+    "tradesCounted": 0,
+    "totalCostEur": 0,
+    "totalPayoutEur": 0,
+    "pnlEur": 0
+  },
+  "scriptD": {
+    "tradesCounted": 0,
+    "totalCostEur": 0,
+    "totalPayoutEur": 0,
+    "pnlEur": 0
+  }
+}

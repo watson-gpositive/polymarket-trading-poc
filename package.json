@@ -16,8 +16,13 @@
     "start:inventory": "node src/inventoryRunner.js",
     "start:inventory:once": "RUN_ONCE=true node src/inventoryRunner.js",
     "report:compare": "node src/compareLogs.js",
-    "start:inventory:v2": "node src/inventoryRunnerV2.js",
-    "start:inventory:v2:once": "RUN_ONCE=true node src/inventoryRunnerV2.js"
+    "start:inventory:v2": "node src/scriptC.js",
+    "start:inventory:v2:once": "RUN_ONCE=true node src/scriptC.js",
+    "start:script:c": "node src/scriptC.js",
+    "start:script:c:once": "RUN_ONCE=true node src/scriptC.js",
+    "start:script:d": "node src/scriptD.js",
+    "start:script:d:once": "RUN_ONCE=true node src/scriptD.js",
+    "report:pnl": "node src/reportBankrollPnl.js"
   },
   "engines": {
     "node": ">=20"
