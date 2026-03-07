@@ -36,7 +36,19 @@ npm run report:pnl -- 5 2
 Output:
 - `logs/bankroll-pnl-latest.json`
 
-## 4) Πού είναι τα raw logs
+## 4) Ωριαίο checkpoint (auto)
+
+Script:
+- `scripts/hourly-checkpoint.sh`
+
+Τι κάνει κάθε ώρα:
+- τρέχει `report:compare`
+- τρέχει `report:pnl -- 5 2`
+- γράφει summary στα:
+  - `logs/hourly-summary-latest.txt`
+  - `logs/hourly-summary-history.log`
+
+## 5) Πού είναι τα raw logs
 
 - `logs/events.jsonl` = live events
 - `logs/progress.jsonl` = audit log εργασιών/υλοποίησης
