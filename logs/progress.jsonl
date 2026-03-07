@@ -15,3 +15,5 @@
 {"ts":"2026-03-07T08:57:08.192Z","phase":"done","task":"compare-logs","details":"added compare report + README for easy A/B review","git":"06b5903"}
 {"ts":"2026-03-07T09:00:34.321Z","phase":"start","task":"script-b-v2","details":"implement mimic-style inventory runner v2 and add to comparison reports","git":"890ac94"}
 {"ts":"2026-03-07T09:02:19.745Z","phase":"done","task":"script-b-v2","details":"implemented v2 runner, started background, and added v2 metrics to compare report","git":"890ac94"}
+{"ts":"2026-03-07T09:03:23.063Z","phase":"start","task":"script-b-v2-tuning","details":"tune v2 hedge closure logic (age-aware thresholds + faster rebalance)","git":"8c4714f"}
+{"ts":"2026-03-07T09:05:00.528Z","phase":"done","task":"script-b-v2-tuning","details":"applied age-aware hedge tuning and restarted v2 runner","git":"8c4714f"}

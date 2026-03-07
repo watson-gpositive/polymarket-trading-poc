@@ -69,25 +69,29 @@ function tryRebalance(position, c) {
   const hedgePrice = position.side === 0 ? c.p1 : c.p0;
   const total = position.entryPriceCents + hedgePrice;
   const p = modeParams();
+  const age = tickNo - position.openTick;
+  const strictMax = Math.min(config.invHedgeMaxTotalCents, p.hedgeMax);
+  const dynamicMax = Math.min(104, strictMax + Math.floor(age / 2));
+  const remaining = Math.max(0, position.totalShares - position.hedgedShares);
 
-  if (total <= Math.min(config.invHedgeMaxTotalCents, p.hedgeMax)) {
-    position.hedgedShares += config.v2RebalanceStepShares;
-    position.totalShares = Math.max(position.totalShares, position.hedgedShares);
+  // if good enough, close all remaining hedge now
+  if (total <= strictMax) {
+    position.hedgedShares += remaining;
     position.lastHedgeTick = tickNo;
     position.lastTotalCents = total;
-    return { hedged: true, total };
+    return { hedged: true, total, qty: remaining, closeAll: true };
   }
 
-  // urgency hedge: after N ticks, allow weaker total (cap at 103)
-  if ((tickNo - position.openTick) >= config.v2HedgeUrgencyTicks && total <= 103) {
-    position.hedgedShares += config.v2RebalanceStepShares;
-    position.totalShares = Math.max(position.totalShares, position.hedgedShares);
+  // urgency hedge after N ticks, gradually relax threshold and hedge stepwise
+  if (age >= config.v2HedgeUrgencyTicks && total <= dynamicMax) {
+    const qty = Math.min(remaining, config.v2RebalanceStepShares);
+    position.hedgedShares += qty;
     position.lastHedgeTick = tickNo;
     position.lastTotalCents = total;
-    return { hedged: true, total, urgent: true };
+    return { hedged: true, total, qty, urgent: true, dynamicMax };
   }
 
-  return { hedged: false, total };
+  return { hedged: false, total, dynamicMax };
 }
 
 async function tick() {
@@ -143,9 +147,12 @@ async function tick() {
           marketId: c.marketId,
           title: c.title,
           urgent: Boolean(res.urgent),
+          closeAll: Boolean(res.closeAll),
+          hedgeQty: res.qty ?? 0,
           totalCents: res.total,
           hedgedShares: existing.hedgedShares,
-          totalShares: existing.totalShares
+          totalShares: existing.totalShares,
+          dynamicMax: res.dynamicMax ?? null
         });
       }
     }

@@ -3,15 +3,15 @@
 > node src/compareLogs.js
 
 {
-  "ts": "2026-03-07T09:02:19.492Z",
+  "ts": "2026-03-07T09:05:00.223Z",
   "window": {
     "firstTs": "2026-03-06T19:23:52.869Z",
-    "lastTs": "2026-03-07T09:02:15.356Z",
-    "totalRows": 244
+    "lastTs": "2026-03-07T09:04:47.591Z",
+    "totalRows": 261
   },
   "scriptA": {
     "script": "A_strict_pair_arb",
-    "ticks": 112,
+    "ticks": 117,
     "opportunities": 0,
     "depthChecked": 0,
     "tradableAfterDepth": 0,
@@ -22,23 +22,23 @@
   },
   "scriptB": {
     "script": "B_inventory_dynamic_hedge",
-    "ticks": 21,
-    "candidates": 630,
-    "depthPassed": 573,
+    "ticks": 26,
+    "candidates": 780,
+    "depthPassed": 713,
     "entries": 81,
     "hedges": 0,
     "openCountLast": 28,
     "hedgedCountLast": 0,
     "avgCandidatesPerTick": 30,
-    "avgDepthPassedPerTick": 27.285714285714285,
+    "avgDepthPassedPerTick": 27.423076923076923,
     "hedgeRatePerEntry": 0
   },
   "scriptBv2": {
     "script": "B_v2_mimic_inventory_hedge",
-    "ticks": 2,
-    "candidates": 4,
-    "depthPassed": 2,
-    "entries": 2,
+    "ticks": 7,
+    "candidates": 14,
+    "depthPassed": 7,
+    "entries": 3,
     "hedges": 0,
     "urgentHedges": 0,
     "openCountLast": 1,
