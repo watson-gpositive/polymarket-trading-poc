@@ -11,3 +11,5 @@
 {"ts":"2026-03-07T08:41:27.926Z","phase":"done","task":"partial-fill-sim","details":"simulation added and verified","git":"03a76a2"}
 {"ts":"2026-03-07T08:51:37.054Z","phase":"start","task":"script-b-inventory-hedge","details":"bootstrap second strategy runner (inventory + dynamic hedge)","git":"d4d728c"}
 {"ts":"2026-03-07T08:53:11.789Z","phase":"done","task":"script-b-inventory-hedge","details":"script B implemented, verified once, and started in background","git":"d4d728c"}
+{"ts":"2026-03-07T08:56:26.108Z","phase":"start","task":"compare-logs","details":"add easy A/B comparison report from shared events log","git":"06b5903"}
+{"ts":"2026-03-07T08:57:08.192Z","phase":"done","task":"compare-logs","details":"added compare report + README for easy A/B review","git":"06b5903"}

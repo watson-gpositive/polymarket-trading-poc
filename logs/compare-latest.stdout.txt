@@ -1,0 +1,36 @@
+
+> polymarket-trading-poc@0.1.0 report:compare
+> node src/compareLogs.js
+
+{
+  "ts": "2026-03-07T08:56:50.822Z",
+  "window": {
+    "firstTs": "2026-03-06T19:23:52.869Z",
+    "lastTs": "2026-03-07T08:56:41.336Z",
+    "totalRows": 216
+  },
+  "scriptA": {
+    "script": "A_strict_pair_arb",
+    "ticks": 101,
+    "opportunities": 0,
+    "depthChecked": 0,
+    "tradableAfterDepth": 0,
+    "accepted": 0,
+    "partialSimulations": 0,
+    "avgOpportunitiesPerTick": 0,
+    "avgTradableAfterDepthPerTick": 0
+  },
+  "scriptB": {
+    "script": "B_inventory_dynamic_hedge",
+    "ticks": 10,
+    "candidates": 300,
+    "depthPassed": 271,
+    "entries": 81,
+    "hedges": 0,
+    "openCountLast": 28,
+    "hedgedCountLast": 0,
+    "avgCandidatesPerTick": 30,
+    "avgDepthPassedPerTick": 27.1,
+    "hedgeRatePerEntry": 0
+  }
+}

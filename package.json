@@ -14,7 +14,8 @@
     "report:paper": "node src/paperReport.js",
     "analyze:wallets": "node src/analyzeWallets.js",
     "start:inventory": "node src/inventoryRunner.js",
-    "start:inventory:once": "RUN_ONCE=true node src/inventoryRunner.js"
+    "start:inventory:once": "RUN_ONCE=true node src/inventoryRunner.js",
+    "report:compare": "node src/compareLogs.js"
   },
   "engines": {
     "node": ">=20"
