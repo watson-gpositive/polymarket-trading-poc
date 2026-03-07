@@ -1,0 +1,240 @@
+
+> polymarket-trading-poc@0.1.0 report:paper
+> node src/paperReport.js
+
+{
+  "ts": "2026-03-07T07:59:54.788Z",
+  "sample": {
+    "activeMarketsFetched": 500,
+    "twoOutcomePricedMarkets": 500
+  },
+  "summary": {
+    "strictArbCount": 0,
+    "atOrUnder100Count": 442,
+    "exactly100Count": 442,
+    "exactly101Count": 58
+  },
+  "byBucket": {
+    "politics": {
+      "markets": 0,
+      "strictArb": 0,
+      "atOrUnder100": 0,
+      "at101": 0
+    },
+    "crypto": {
+      "markets": 0,
+      "strictArb": 0,
+      "atOrUnder100": 0,
+      "at101": 0
+    },
+    "other": {
+      "markets": 500,
+      "strictArb": 0,
+      "atOrUnder100": 442,
+      "at101": 58
+    }
+  },
+  "strictTop": [],
+  "nearTop": [
+    {
+      "marketId": "531202",
+      "title": "BitBoy convicted?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 12,
+      "pB": 88,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "540816",
+      "title": "Russia-Ukraine Ceasefire before GTA VI?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 58,
+      "pB": 42,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "540818",
+      "title": "New Playboi Carti Album before GTA VI?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 57,
+      "pB": 43,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "540844",
+      "title": "Will bitcoin hit $1m before GTA VI?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 49,
+      "pB": 51,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "540881",
+      "title": "GTA VI released before June 2026?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 2,
+      "pB": 98,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "544093",
+      "title": "Will Harvey Weinstein be sentenced to less than 5 years in prison?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 3,
+      "pB": 97,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "544094",
+      "title": "Will Harvey Weinstein be sentenced to between 5 and 10 years in prison?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 10,
+      "pB": 90,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "544095",
+      "title": "Will Harvey Weinstein be sentenced to between 10 and 20 years in prison?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 10,
+      "pB": 90,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "544096",
+      "title": "Will Harvey Weinstein be sentenced to between 20 and 30 years in prison?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 24,
+      "pB": 76,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "544097",
+      "title": "Will Harvey Weinstein be sentenced to more than 30 years in prison?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 6,
+      "pB": 94,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "546612",
+      "title": "Will OpenAI launch a new consumer hardware product by March 31, 2026?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 1,
+      "pB": 99,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "550694",
+      "title": "Will Italy qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 57,
+      "pB": 43,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "550703",
+      "title": "Will Sweden qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 29,
+      "pB": 71,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "550706",
+      "title": "Will Poland qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 34,
+      "pB": 66,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553825",
+      "title": "Will the Florida Panthers win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 1,
+      "pB": 99,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553828",
+      "title": "Will the Colorado Avalanche win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 24,
+      "pB": 76,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553829",
+      "title": "Will the Vegas Golden Knights win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 5,
+      "pB": 95,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553830",
+      "title": "Will the Tampa Bay Lightning win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 15,
+      "pB": 85,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553831",
+      "title": "Will the Los Angeles Kings win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 1,
+      "pB": 99,
+      "sum": 100,
+      "strictEdge": -2
+    },
+    {
+      "marketId": "553832",
+      "title": "Will the New Jersey Devils win the 2026 NHL Stanley Cup?",
+      "category": "unknown",
+      "bucket": "other",
+      "pA": 0,
+      "pB": 100,
+      "sum": 100,
+      "strictEdge": -2
+    }
+  ]
+}

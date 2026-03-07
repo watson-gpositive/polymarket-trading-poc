@@ -2,3 +2,5 @@
 {"ts":"2026-03-06T23:35:34.119Z","phase":"done","task":"auditable-progress-logging","details":"protocol installed","git":"816489d"}
 {"ts":"2026-03-07T00:09:46.588Z","phase":"start","task":"market-diagnostics","details":"adding analysis script for yes/no sum distribution and near-arb ranking","git":"d6bcf53"}
 {"ts":"2026-03-07T00:09:47.521Z","phase":"done","task":"market-diagnostics","details":"analysis script added and snapshot generated","git":"d6bcf53"}
+{"ts":"2026-03-07T07:59:54.129Z","phase":"start","task":"paper-report-v1","details":"generate auditable paper-trading snapshot with strict/net-of-fee and near-arb metrics","git":"7ce4a80"}
+{"ts":"2026-03-07T07:59:55.110Z","phase":"done","task":"paper-report-v1","details":"paper snapshot generated at logs/paper-report-v1.json","git":"7ce4a80"}
