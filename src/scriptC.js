@@ -78,7 +78,7 @@ async function tick() {
   let depthPassed = 0, entries = 0, hedges = 0, urgentHedges = 0;
 
   for (const c of cands) {
-    if ([...inventory.values()].filter(x => x.hedgedShares < x.totalShares).length >= config.v2MaxOpenPositions) break;
+    if ([...inventory.values()].filter(x => x.hedgedShares < x.totalShares).length >= config.cMaxOpenPositions) break;
     const depth = await assessYesPairDepth(c, config);
     if (!depth.ok) continue;
     depthPassed += 1;
@@ -86,9 +86,9 @@ async function tick() {
     const key = String(c.marketId);
     const existing = inventory.get(key);
     if (!existing) {
-      inventory.set(key, { marketId: c.marketId, title: c.title, category: c.category, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, totalShares: config.targetSharesPerTrade, hedgedShares: 0, openTick: tickNo });
+      inventory.set(key, { marketId: c.marketId, title: c.title, category: c.category, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, totalShares: config.cTargetSharesPerTrade, hedgedShares: 0, openTick: tickNo });
       entries += 1;
-      logEvent('script_c_entry', { marketId: c.marketId, title: c.title, category: c.category, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, shares: config.targetSharesPerTrade });
+      logEvent('script_c_entry', { marketId: c.marketId, title: c.title, category: c.category, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, shares: config.cTargetSharesPerTrade });
       continue;
     }
 
@@ -108,7 +108,14 @@ async function tick() {
 }
 
 async function main() {
-  logEvent('script_c_startup', { loopIntervalSec: config.loopIntervalSec, mode: config.v2Mode, v2MaxOpenPositions: config.v2MaxOpenPositions, v2RebalanceStepShares: config.v2RebalanceStepShares, v2HedgeUrgencyTicks: config.v2HedgeUrgencyTicks });
+  logEvent('script_c_startup', {
+    loopIntervalSec: config.loopIntervalSec,
+    mode: config.v2Mode,
+    cMaxOpenPositions: config.cMaxOpenPositions,
+    cTargetSharesPerTrade: config.cTargetSharesPerTrade,
+    v2RebalanceStepShares: config.v2RebalanceStepShares,
+    v2HedgeUrgencyTicks: config.v2HedgeUrgencyTicks
+  });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;
   setInterval(() => tick().catch(err => logEvent('script_c_tick_error', { error: String(err) })), config.loopIntervalSec * 1000);

@@ -22,3 +22,5 @@
 {"ts":"2026-03-07T10:14:16.060Z","phase":"done","task":"script-d-tune","details":"limited new entries per tick and tightened entry price band for Script D","git":"4e8676d"}
 {"ts":"2026-03-07T10:18:54.119Z","phase":"start","task":"kpi-wiring","details":"add decision KPIs and simple explanations to hourly checkpoint outputs","git":"a0d748b"}
 {"ts":"2026-03-07T10:20:45.247Z","phase":"done","task":"kpi-wiring","details":"wired decision KPIs with simple explanations into hourly checkpoint","git":"a0d748b"}
+{"ts":"2026-03-07T13:11:41.872Z","phase":"start","task":"apply-next-actions","details":"prioritize Script C safety, tune Script D urgent hedges, and improve Script B hedge handling","git":"4ce7546"}
+{"ts":"2026-03-07T13:11:42.098Z","phase":"done","task":"apply-next-actions","details":"changes implemented and daemons restarted","git":"4ce7546"}

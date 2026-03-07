@@ -3,7 +3,8 @@ import { logEvent } from './utils/logger.js';
 import { fetchActiveMarkets } from './polymarket/client.js';
 import { assessYesPairDepth } from './engine/depthCheck.js';
 
-const inventory = new Map(); // key marketId => { side:0|1, shares, entryPriceCents, hedged }
+const inventory = new Map(); // key marketId => { side:0|1, shares, entryPriceCents, hedged, openTick }
+let tickNo = 0;
 
 function toPriceCents(x) {
   const n = Number(x);
@@ -45,6 +46,7 @@ function pickCandidates(markets) {
 }
 
 async function tick() {
+  tickNo += 1;
   const markets = await fetchActiveMarkets(400);
   const cands = pickCandidates(markets);
 
@@ -67,6 +69,7 @@ async function tick() {
         entryPriceCents: c.side === 0 ? c.p0 : c.p1,
         hedged: false,
         openedAt: new Date().toISOString(),
+        openTick: tickNo,
         p0: c.p0,
         p1: c.p1
       });
@@ -84,7 +87,12 @@ async function tick() {
     if (!existing.hedged) {
       const hedgePrice = existing.side === 0 ? c.p1 : c.p0;
       const total = existing.entryPriceCents + hedgePrice;
-      if (total <= config.invHedgeMaxTotalCents) {
+      const age = tickNo - (existing.openTick || tickNo);
+      const strictMax = config.invHedgeMaxTotalCents;
+      const dynamicMax = Math.min(103, strictMax + Math.floor(age / 2));
+      const canHedge = total <= strictMax || (age >= config.bHedgeUrgencyTicks && total <= dynamicMax);
+
+      if (canHedge) {
         existing.hedged = true;
         existing.hedgedAt = new Date().toISOString();
         existing.hedgePriceCents = hedgePrice;
@@ -96,7 +104,18 @@ async function tick() {
           title: c.title,
           totalCents: total,
           grossEdgeCents: existing.grossEdgeCents,
-          shares: existing.shares
+          shares: existing.shares,
+          urgent: total > strictMax,
+          dynamicMax
+        });
+      } else {
+        logEvent('inventory_hedge_miss', {
+          marketId: c.marketId,
+          title: c.title,
+          totalCents: total,
+          strictMax,
+          dynamicMax,
+          ageTicks: age
         });
       }
     }
@@ -122,6 +141,7 @@ async function main() {
     invEntryMinPriceCents: config.invEntryMinPriceCents,
     invEntryMaxPriceCents: config.invEntryMaxPriceCents,
     invHedgeMaxTotalCents: config.invHedgeMaxTotalCents,
+    bHedgeUrgencyTicks: config.bHedgeUrgencyTicks,
     targetSharesPerTrade: config.targetSharesPerTrade
   });
 

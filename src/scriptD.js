@@ -61,16 +61,16 @@ function rebalance(pos, cand) {
   const age = tickNo - pos.openTick;
   const hedgePrice = pos.side === 0 ? cand.p1 : cand.p0;
   const total = pos.entryPriceCents + hedgePrice;
-  const strictMax = 100;
-  const dynamicMax = Math.min(104, strictMax + Math.floor(age / 3));
+  const strictMax = 101;
+  const dynamicMax = Math.min(104, strictMax + Math.floor(age / 4));
   const remaining = Math.max(0, pos.totalShares - pos.hedgedShares);
 
   if (total <= strictMax) {
     pos.hedgedShares += remaining;
     return { ok: true, qty: remaining, total, closeAll: true };
   }
-  if (age >= 4 && total <= dynamicMax) {
-    const qty = Math.min(remaining, Math.max(5, Math.floor(config.v2RebalanceStepShares / 2)));
+  if (age >= 3 && total <= dynamicMax) {
+    const qty = Math.min(remaining, Math.max(10, Math.floor(config.v2RebalanceStepShares * 0.75)));
     pos.hedgedShares += qty;
     return { ok: true, qty, total, urgent: true, dynamicMax };
   }
