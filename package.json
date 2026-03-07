@@ -11,7 +11,8 @@
     "progress:done": "node scripts/progress-log.js done",
     "progress:blocked": "node scripts/progress-log.js blocked",
     "analyze": "node src/analyze.js",
-    "report:paper": "node src/paperReport.js"
+    "report:paper": "node src/paperReport.js",
+    "analyze:wallets": "node src/analyzeWallets.js"
   },
   "engines": {
     "node": ">=20"
