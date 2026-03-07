@@ -9,3 +9,5 @@
 {"ts":"2026-03-07T08:39:31.316Z","phase":"done","task":"depth-aware-filter","details":"added depth-aware gating and verified run","git":"f581ed6"}
 {"ts":"2026-03-07T08:41:27.142Z","phase":"start","task":"partial-fill-sim","details":"add paired execution simulation with partial-fill risk and unhedged exposure","git":"03a76a2"}
 {"ts":"2026-03-07T08:41:27.926Z","phase":"done","task":"partial-fill-sim","details":"simulation added and verified","git":"03a76a2"}
+{"ts":"2026-03-07T08:51:37.054Z","phase":"start","task":"script-b-inventory-hedge","details":"bootstrap second strategy runner (inventory + dynamic hedge)","git":"d4d728c"}
+{"ts":"2026-03-07T08:53:11.789Z","phase":"done","task":"script-b-inventory-hedge","details":"script B implemented, verified once, and started in background","git":"d4d728c"}

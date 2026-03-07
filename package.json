@@ -12,7 +12,9 @@
     "progress:blocked": "node scripts/progress-log.js blocked",
     "analyze": "node src/analyze.js",
     "report:paper": "node src/paperReport.js",
-    "analyze:wallets": "node src/analyzeWallets.js"
+    "analyze:wallets": "node src/analyzeWallets.js",
+    "start:inventory": "node src/inventoryRunner.js",
+    "start:inventory:once": "RUN_ONCE=true node src/inventoryRunner.js"
   },
   "engines": {
     "node": ">=20"
