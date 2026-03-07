@@ -7,3 +7,5 @@
 {"ts":"2026-03-07T08:09:34.425Z","phase":"start","task":"paper-runner-30s","details":"start continuous paper runner every 30s with 98c trigger","git":"cac24d6"}
 {"ts":"2026-03-07T08:39:27.752Z","phase":"start","task":"depth-aware-filter","details":"implement orderbook depth checks before accepting yes-pair opportunities","git":"f581ed6"}
 {"ts":"2026-03-07T08:39:31.316Z","phase":"done","task":"depth-aware-filter","details":"added depth-aware gating and verified run","git":"f581ed6"}
+{"ts":"2026-03-07T08:41:27.142Z","phase":"start","task":"partial-fill-sim","details":"add paired execution simulation with partial-fill risk and unhedged exposure","git":"03a76a2"}
+{"ts":"2026-03-07T08:41:27.926Z","phase":"done","task":"partial-fill-sim","details":"simulation added and verified","git":"03a76a2"}

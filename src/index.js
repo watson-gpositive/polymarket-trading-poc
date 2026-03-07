@@ -4,6 +4,7 @@ import { fetchActiveMarkets, fetchWalletProfile } from './polymarket/client.js';
 import { detectTwoOutcomeArb } from './strategy/arbDetector.js';
 import { PaperTrader } from './engine/paperTrader.js';
 import { assessYesPairDepth } from './engine/depthCheck.js';
+import { simulatePairedExecution } from './engine/executionSim.js';
 
 const trader = new PaperTrader(config);
 
@@ -25,21 +26,38 @@ async function tick() {
     if (o.type !== 'YES_PAIR_ARB') continue;
     try {
       const depth = await assessYesPairDepth(o, config);
-      checked.push({ ...o, depth });
+      const sim = depth.ok ? simulatePairedExecution(o, depth, config) : null;
+      checked.push({ ...o, depth, sim });
+
+      if (sim?.ok) {
+        logEvent('paper_execution_sim', {
+          marketId: o.marketId,
+          title: o.title,
+          partial: sim.partial,
+          requestedShares: sim.requestedShares,
+          fillA: sim.fillA,
+          fillB: sim.fillB,
+          hedgedShares: sim.hedgedShares,
+          hedgedGrossEur: sim.hedgedGrossEur,
+          unhedgedExposureEur: sim.unhedgedExposureEur
+        });
+      }
     } catch (err) {
       logEvent('depth_check_error', { marketId: o.marketId, error: String(err) });
     }
   }
 
-  const tradable = checked.filter(x => x.depth?.ok);
+  const tradable = checked.filter(x => x.depth?.ok && x.sim?.ok && !x.sim?.partial);
   const accepted = trader.onOpportunities(tradable);
   const categories = categorySummary(opps);
+  const partialCount = checked.filter(x => x.sim?.partial).length;
 
   logEvent('tick_summary', {
     markets: markets.length,
     opportunities: opps.length,
     depthChecked: checked.length,
     tradableAfterDepth: tradable.length,
+    partialSimulations: partialCount,
     accepted: accepted.length,
     categories
   });
@@ -52,7 +70,9 @@ async function main() {
     focusCategories: config.focusCategories,
     referenceWallet: config.referenceWallet,
     arbTriggerMaxTotalCents: config.arbTriggerMaxTotalCents,
-    minDepthSharesPerLeg: config.minDepthSharesPerLeg
+    minDepthSharesPerLeg: config.minDepthSharesPerLeg,
+    targetSharesPerTrade: config.targetSharesPerTrade,
+    queueFillFactor: config.queueFillFactor
   });
 
   const wallet = await fetchWalletProfile(config.referenceWallet);
