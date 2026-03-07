@@ -47,6 +47,7 @@ export const config = {
   cHedgeUrgencyTicks: toNum(process.env.C_HEDGE_URGENCY_TICKS, 5),
   dEnabled: (process.env.D_ENABLED ?? 'true') === 'true',
   dMaxOpenPositions: toNum(process.env.D_MAX_OPEN_POSITIONS, 20),
+  dMaxExposureTicks: toNum(process.env.D_MAX_EXPOSURE_TICKS, 12),
   bHedgeUrgencyTicks: toNum(process.env.B_HEDGE_URGENCY_TICKS, 6),
   marketScope: process.env.MARKET_SCOPE ?? 'all',
   focusCategories: (process.env.FOCUS_CATEGORIES ?? 'politics,crypto').split(',').map(s => s.trim()).filter(Boolean),

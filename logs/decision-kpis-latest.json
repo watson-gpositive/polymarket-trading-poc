@@ -1,9 +1,9 @@
 {
-  "ts": "2026-03-07T15:11:17.257Z",
+  "ts": "2026-03-07T16:19:58.699Z",
   "compare": {
     "scriptA": {
       "script": "A_strict_pair_arb",
-      "ticks": 849,
+      "ticks": 986,
       "opportunities": 0,
       "depthChecked": 0,
       "tradableAfterDepth": 0,
@@ -14,49 +14,49 @@
     },
     "scriptB": {
       "script": "B_inventory_dynamic_hedge",
-      "ticks": 758,
-      "candidates": 22740,
-      "depthPassed": 20672,
-      "entries": 202,
-      "hedges": 62,
-      "openCountLast": 0,
-      "hedgedCountLast": 30,
+      "ticks": 895,
+      "candidates": 26850,
+      "depthPassed": 24601,
+      "entries": 232,
+      "hedges": 63,
+      "openCountLast": 29,
+      "hedgedCountLast": 0,
       "avgCandidatesPerTick": 30,
-      "avgDepthPassedPerTick": 27.271767810026386,
-      "hedgeRatePerEntry": 0.3069306930693069
+      "avgDepthPassedPerTick": 27.48715083798883,
+      "hedgeRatePerEntry": 0.27155172413793105
     },
     "scriptC": {
       "script": "C_mimic_inventory_hedge",
-      "ticks": 605,
-      "candidates": 1210,
-      "depthPassed": 605,
-      "entries": 4,
-      "hedges": 4,
-      "urgentHedges": 3,
-      "openCountLast": 0,
-      "fullyHedgedLast": 1,
+      "ticks": 742,
+      "candidates": 1484,
+      "depthPassed": 785,
+      "entries": 6,
+      "hedges": 5,
+      "urgentHedges": 4,
+      "openCountLast": 1,
+      "fullyHedgedLast": 0,
       "avgCandidatesPerTick": 2,
-      "avgDepthPassedPerTick": 1,
-      "hedgeRatePerEntry": 1,
-      "urgentHedgeShare": 0.75,
+      "avgDepthPassedPerTick": 1.0579514824797844,
+      "hedgeRatePerEntry": 0.8333333333333334,
+      "urgentHedgeShare": 0.8,
       "closureRate": 1
     },
     "scriptD": {
       "script": "D_capped_multi_category_hedge",
-      "ticks": 604,
-      "candidates": 34735,
-      "depthPassed": 12995,
-      "entries": 145,
-      "hedges": 150,
+      "ticks": 740,
+      "candidates": 41170,
+      "depthPassed": 16183,
+      "entries": 149,
+      "hedges": 154,
       "urgentHedges": 72,
-      "skippedByCap": 18532,
+      "skippedByCap": 21110,
       "openCountLast": 4,
-      "fullyHedgedLast": 27,
-      "avgCandidatesPerTick": 57.508278145695364,
-      "avgDepthPassedPerTick": 21.514900662251655,
-      "hedgeRatePerEntry": 1.0344827586206897,
-      "urgentHedgeShare": 0.48,
-      "closureRate": 0.8076923076923077
+      "fullyHedgedLast": 31,
+      "avgCandidatesPerTick": 55.63513513513514,
+      "avgDepthPassedPerTick": 21.86891891891892,
+      "hedgeRatePerEntry": 1.0335570469798658,
+      "urgentHedgeShare": 0.4675324675324675,
+      "closureRate": 0.8148148148148148
     }
   },
   "pnl5": {
@@ -65,16 +65,16 @@
       "pnlEur": 0
     },
     "scriptB": {
-      "trades": 62,
-      "pnlEur": -6.65
+      "trades": 63,
+      "pnlEur": -6.77
     },
     "scriptC": {
-      "trades": 4,
-      "pnlEur": -0.4
+      "trades": 5,
+      "pnlEur": -0.52
     },
     "scriptD": {
-      "trades": 150,
-      "pnlEur": -16.48
+      "trades": 154,
+      "pnlEur": -16.96
     }
   },
   "pnl50": {
@@ -83,16 +83,16 @@
       "pnlEur": 0
     },
     "scriptB": {
-      "trades": 62,
-      "pnlEur": -75.5
+      "trades": 63,
+      "pnlEur": -76.97
     },
     "scriptC": {
-      "trades": 4,
-      "pnlEur": -1.2
+      "trades": 5,
+      "pnlEur": -1.35
     },
     "scriptD": {
-      "trades": 150,
-      "pnlEur": -119.29
+      "trades": 154,
+      "pnlEur": -125.17
     }
   },
   "pnl500": {
@@ -101,28 +101,28 @@
       "pnlEur": 0
     },
     "scriptB": {
-      "trades": 62,
-      "pnlEur": -76.5
+      "trades": 63,
+      "pnlEur": -78
     },
     "scriptC": {
-      "trades": 4,
-      "pnlEur": -1.2
+      "trades": 5,
+      "pnlEur": -1.35
     },
     "scriptD": {
-      "trades": 150,
-      "pnlEur": -120.52
+      "trades": 154,
+      "pnlEur": -126.52
     }
   },
   "exposure": {
     "scriptC": {
-      "closedCount": 1,
-      "avgMinutes": 246.74,
+      "closedCount": 2,
+      "avgMinutes": 124.62,
       "maxMinutes": 246.74
     },
     "scriptD": {
-      "closedCount": 42,
-      "avgMinutes": 179.54,
-      "maxMinutes": 296.3
+      "closedCount": 44,
+      "avgMinutes": 178.17,
+      "maxMinutes": 306.33
     }
   },
   "suggestions": [

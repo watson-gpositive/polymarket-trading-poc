@@ -28,3 +28,5 @@
 {"ts":"2026-03-07T14:16:34.143Z","phase":"done","task":"post-checkpoint-tuning","details":"implemented A diagnostics, C safety tuning, D low-priority tuning, and B hedge diagnostics","git":"2c3d0a2"}
 {"ts":"2026-03-07T15:08:48.584Z","phase":"start","task":"apply-15h-recs","details":"tune C/D and extend PnL reporting to A/B","git":"a88875f"}
 {"ts":"2026-03-07T15:11:25.399Z","phase":"done","task":"apply-15h-recs","details":"applied C/D tuning and extended KPI PnL to include A/B","git":"a88875f"}
+{"ts":"2026-03-07T16:17:38.537Z","phase":"start","task":"apply-latest-recommendations","details":"set C as default baseline, tune C urgent dependence, and add D exposure timeout controls","git":"fbbe384"}
+{"ts":"2026-03-07T16:19:58.999Z","phase":"done","task":"apply-latest-recommendations","details":"implemented C default baseline, reduced D aggressiveness with pause + exposure timeout, and kept rationale-ready reporting","git":"fbbe384"}

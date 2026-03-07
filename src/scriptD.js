@@ -74,6 +74,12 @@ function rebalance(pos, cand) {
     pos.hedgedShares += qty;
     return { ok: true, qty, total, urgent: true, dynamicMax };
   }
+
+  if (age >= config.dMaxExposureTicks) {
+    pos.hedgedShares += remaining;
+    return { ok: true, qty: remaining, total, forced: true, closeAll: true, dynamicMax };
+  }
+
   return { ok: false, total, dynamicMax };
 }
 
@@ -87,7 +93,7 @@ async function tick() {
   const cands = candidates(m);
   const limits = caps();
 
-  let depthPassed = 0, entries = 0, hedges = 0, urgentHedges = 0, skippedByCap = 0;
+  let depthPassed = 0, entries = 0, hedges = 0, urgentHedges = 0, forcedHedges = 0, skippedByCap = 0;
   let entryBudget = config.dMaxNewEntriesPerTick;
 
   for (const c of cands) {
@@ -116,14 +122,15 @@ async function tick() {
       if (r.ok) {
         hedges += 1;
         if (r.urgent) urgentHedges += 1;
-        logEvent('script_d_hedge', { marketId: c.marketId, title: c.title, urgent: Boolean(r.urgent), closeAll: Boolean(r.closeAll), hedgeQty: r.qty, totalCents: r.total, hedgedShares: existing.hedgedShares, totalShares: existing.totalShares, dynamicMax: r.dynamicMax ?? null });
+        if (r.forced) forcedHedges += 1;
+        logEvent('script_d_hedge', { marketId: c.marketId, title: c.title, urgent: Boolean(r.urgent), forced: Boolean(r.forced), closeAll: Boolean(r.closeAll), hedgeQty: r.qty, totalCents: r.total, hedgedShares: existing.hedgedShares, totalShares: existing.totalShares, dynamicMax: r.dynamicMax ?? null });
       }
     }
   }
 
   const openCount = [...inv.values()].filter(x => x.hedgedShares < x.totalShares).length;
   const fullyHedged = [...inv.values()].filter(x => x.hedgedShares >= x.totalShares).length;
-  logEvent('script_d_tick_summary', { tickNo, markets: m.length, candidates: cands.length, depthPassed, entries, hedges, urgentHedges, skippedByCap, openCount, fullyHedged });
+  logEvent('script_d_tick_summary', { tickNo, markets: m.length, candidates: cands.length, depthPassed, entries, hedges, urgentHedges, forcedHedges, skippedByCap, openCount, fullyHedged });
 }
 
 async function main() {
@@ -134,7 +141,8 @@ async function main() {
     rebalanceStep: config.v2RebalanceStepShares,
     dMaxNewEntriesPerTick: config.dMaxNewEntriesPerTick,
     dMinEntryPriceCents: config.dMinEntryPriceCents,
-    dMaxEntryPriceCents: config.dMaxEntryPriceCents
+    dMaxEntryPriceCents: config.dMaxEntryPriceCents,
+    dMaxExposureTicks: config.dMaxExposureTicks
   });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;
