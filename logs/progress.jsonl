@@ -19,3 +19,4 @@
 {"ts":"2026-03-07T09:05:00.528Z","phase":"done","task":"script-b-v2-tuning","details":"applied age-aware hedge tuning and restarted v2 runner","git":"8c4714f"}
 {"ts":"2026-03-07T10:05:31.965Z","phase":"start","task":"rename-c-add-d-pnl-logsize","details":"rename Bv2->C, add Script D, bankroll PnL calc, and log rotation","git":"0bb3f31"}
 {"ts":"2026-03-07T10:09:17.497Z","phase":"done","task":"rename-c-add-d-pnl-logsize","details":"implemented Script C/D, bankroll PnL report, and log rotation","git":"0bb3f31"}
+{"ts":"2026-03-07T10:14:16.060Z","phase":"done","task":"script-d-tune","details":"limited new entries per tick and tightened entry price band for Script D","git":"4e8676d"}

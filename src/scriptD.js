@@ -41,7 +41,7 @@ function candidates(markets) {
     const p1 = toCents(m.outcomes[1]?.price);
     if (p0 == null || p1 == null) continue;
     const low = Math.min(p0, p1);
-    if (low < 12 || low > 75) continue;
+    if (low < config.dMinEntryPriceCents || low > config.dMaxEntryPriceCents) continue;
     const side = p0 <= p1 ? 0 : 1;
     out.push({ marketId: m.id, title: m.title, c: category(m.title, m.raw?.slug ?? ''), p0, p1, side, low, type: 'YES_PAIR_ARB', legs: [
       { outcome: m.outcomes[0]?.name ?? 'A', tokenId: m.outcomes[0]?.tokenId, targetPriceCents: p0 },
@@ -84,6 +84,7 @@ async function tick() {
   const limits = caps();
 
   let depthPassed = 0, entries = 0, hedges = 0, urgentHedges = 0, skippedByCap = 0;
+  let entryBudget = config.dMaxNewEntriesPerTick;
 
   for (const c of cands) {
     const open = [...inv.values()].filter(x => x.hedgedShares < x.totalShares).length;
@@ -98,8 +99,10 @@ async function tick() {
     const key = String(c.marketId);
     const existing = inv.get(key);
     if (!existing) {
+      if (entryBudget <= 0) continue;
       inv.set(key, { marketId: c.marketId, title: c.title, category: c.c, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, totalShares: config.targetSharesPerTrade, hedgedShares: 0, openTick: tickNo });
       entries += 1;
+      entryBudget -= 1;
       logEvent('script_d_entry', { marketId: c.marketId, title: c.title, category: c.c, side: c.side, entryPriceCents: c.side === 0 ? c.p0 : c.p1, shares: config.targetSharesPerTrade });
       continue;
     }
@@ -120,7 +123,14 @@ async function tick() {
 }
 
 async function main() {
-  logEvent('script_d_startup', { loopIntervalSec: config.loopIntervalSec, maxOpenPositions: config.v2MaxOpenPositions, rebalanceStep: config.v2RebalanceStepShares });
+  logEvent('script_d_startup', {
+    loopIntervalSec: config.loopIntervalSec,
+    maxOpenPositions: config.v2MaxOpenPositions,
+    rebalanceStep: config.v2RebalanceStepShares,
+    dMaxNewEntriesPerTick: config.dMaxNewEntriesPerTick,
+    dMinEntryPriceCents: config.dMinEntryPriceCents,
+    dMaxEntryPriceCents: config.dMaxEntryPriceCents
+  });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;
   setInterval(() => tick().catch(err => logEvent('script_d_tick_error', { error: String(err) })), config.loopIntervalSec * 1000);
