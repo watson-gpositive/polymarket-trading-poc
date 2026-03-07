@@ -20,3 +20,5 @@
 {"ts":"2026-03-07T10:05:31.965Z","phase":"start","task":"rename-c-add-d-pnl-logsize","details":"rename Bv2->C, add Script D, bankroll PnL calc, and log rotation","git":"0bb3f31"}
 {"ts":"2026-03-07T10:09:17.497Z","phase":"done","task":"rename-c-add-d-pnl-logsize","details":"implemented Script C/D, bankroll PnL report, and log rotation","git":"0bb3f31"}
 {"ts":"2026-03-07T10:14:16.060Z","phase":"done","task":"script-d-tune","details":"limited new entries per tick and tightened entry price band for Script D","git":"4e8676d"}
+{"ts":"2026-03-07T10:18:54.119Z","phase":"start","task":"kpi-wiring","details":"add decision KPIs and simple explanations to hourly checkpoint outputs","git":"a0d748b"}
+{"ts":"2026-03-07T10:20:45.247Z","phase":"done","task":"kpi-wiring","details":"wired decision KPIs with simple explanations into hourly checkpoint","git":"a0d748b"}

@@ -1,0 +1,110 @@
+{
+  "ts": "2026-03-07T10:20:37.508Z",
+  "compare": {
+    "scriptA": {
+      "script": "A_strict_pair_arb",
+      "ticks": 268,
+      "opportunities": 0,
+      "depthChecked": 0,
+      "tradableAfterDepth": 0,
+      "accepted": 0,
+      "partialSimulations": 0,
+      "avgOpportunitiesPerTick": 0,
+      "avgTradableAfterDepthPerTick": 0
+    },
+    "scriptB": {
+      "script": "B_inventory_dynamic_hedge",
+      "ticks": 177,
+      "candidates": 5310,
+      "depthPassed": 4747,
+      "entries": 83,
+      "hedges": 0,
+      "openCountLast": 30,
+      "hedgedCountLast": 0,
+      "avgCandidatesPerTick": 30,
+      "avgDepthPassedPerTick": 26.819209039548024,
+      "hedgeRatePerEntry": 0
+    },
+    "scriptC": {
+      "script": "C_mimic_inventory_hedge",
+      "ticks": 24,
+      "candidates": 48,
+      "depthPassed": 24,
+      "entries": 1,
+      "hedges": 2,
+      "urgentHedges": 2,
+      "openCountLast": 0,
+      "fullyHedgedLast": 1,
+      "avgCandidatesPerTick": 2,
+      "avgDepthPassedPerTick": 1,
+      "hedgeRatePerEntry": 2,
+      "urgentHedgeShare": 1,
+      "closureRate": 1
+    },
+    "scriptD": {
+      "script": "D_capped_multi_category_hedge",
+      "ticks": 24,
+      "candidates": 1504,
+      "depthPassed": 410,
+      "entries": 63,
+      "hedges": 73,
+      "urgentHedges": 61,
+      "skippedByCap": 1013,
+      "openCountLast": 13,
+      "fullyHedgedLast": 20,
+      "avgCandidatesPerTick": 62.666666666666664,
+      "avgDepthPassedPerTick": 17.083333333333332,
+      "hedgeRatePerEntry": 1.1587301587301588,
+      "urgentHedgeShare": 0.8356164383561644,
+      "closureRate": 0.5128205128205128
+    }
+  },
+  "pnl5": {
+    "scriptC": {
+      "trades": 2,
+      "pnlEur": -0.2
+    },
+    "scriptD": {
+      "trades": 73,
+      "pnlEur": -7.92
+    }
+  },
+  "pnl50": {
+    "scriptC": {
+      "trades": 2,
+      "pnlEur": -1
+    },
+    "scriptD": {
+      "trades": 73,
+      "pnlEur": -30.96
+    }
+  },
+  "pnl500": {
+    "scriptC": {
+      "trades": 2,
+      "pnlEur": -1
+    },
+    "scriptD": {
+      "trades": 73,
+      "pnlEur": -30.96
+    }
+  },
+  "exposure": {
+    "scriptC": {
+      "closedCount": 1,
+      "avgMinutes": 2.01,
+      "maxMinutes": 2.01
+    },
+    "scriptD": {
+      "closedCount": 20,
+      "avgMinutes": 7.83,
+      "maxMinutes": 11.38
+    }
+  },
+  "suggestions": [
+    "Script C έχει καλύτερο hedge closure rate από το D.",
+    "Το Script D βασίζεται πολύ σε urgent hedges, θέλει tuning.",
+    "Το Script C βασίζεται πολύ σε urgent hedges, θέλει tuning.",
+    "Με bankroll €5, το Script C είναι πιο ασφαλές από το D προς το παρόν."
+  ]
+}

@@ -22,7 +22,8 @@
     "start:script:c:once": "RUN_ONCE=true node src/scriptC.js",
     "start:script:d": "node src/scriptD.js",
     "start:script:d:once": "RUN_ONCE=true node src/scriptD.js",
-    "report:pnl": "node src/reportBankrollPnl.js"
+    "report:pnl": "node src/reportBankrollPnl.js",
+    "report:decision": "node src/hourlyDecisionReport.js"
   },
   "engines": {
     "node": ">=20"
