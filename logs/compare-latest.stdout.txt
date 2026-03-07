@@ -3,15 +3,15 @@
 > node src/compareLogs.js
 
 {
-  "ts": "2026-03-07T14:16:17.217Z",
+  "ts": "2026-03-07T15:11:16.962Z",
   "window": {
     "firstTs": "2026-03-06T19:23:52.869Z",
-    "lastTs": "2026-03-07T14:16:12.232Z",
-    "totalRows": 3262
+    "lastTs": "2026-03-07T15:11:06.072Z",
+    "totalRows": 3850
   },
   "scriptA": {
     "script": "A_strict_pair_arb",
-    "ticks": 739,
+    "ticks": 849,
     "opportunities": 0,
     "depthChecked": 0,
     "tradableAfterDepth": 0,
@@ -22,22 +22,22 @@
   },
   "scriptB": {
     "script": "B_inventory_dynamic_hedge",
-    "ticks": 649,
-    "candidates": 19470,
-    "depthPassed": 17621,
-    "entries": 201,
-    "hedges": 32,
-    "openCountLast": 29,
-    "hedgedCountLast": 0,
+    "ticks": 758,
+    "candidates": 22740,
+    "depthPassed": 20672,
+    "entries": 202,
+    "hedges": 62,
+    "openCountLast": 0,
+    "hedgedCountLast": 30,
     "avgCandidatesPerTick": 30,
-    "avgDepthPassedPerTick": 27.15100154083205,
-    "hedgeRatePerEntry": 0.15920398009950248
+    "avgDepthPassedPerTick": 27.271767810026386,
+    "hedgeRatePerEntry": 0.3069306930693069
   },
   "scriptC": {
     "script": "C_mimic_inventory_hedge",
-    "ticks": 495,
-    "candidates": 990,
-    "depthPassed": 495,
+    "ticks": 605,
+    "candidates": 1210,
+    "depthPassed": 605,
     "entries": 4,
     "hedges": 4,
     "urgentHedges": 3,
@@ -50,18 +50,18 @@
   },
   "scriptD": {
     "script": "D_capped_multi_category_hedge",
-    "ticks": 494,
-    "candidates": 29479,
-    "depthPassed": 10498,
-    "entries": 123,
-    "hedges": 129,
+    "ticks": 604,
+    "candidates": 34735,
+    "depthPassed": 12995,
+    "entries": 145,
+    "hedges": 150,
     "urgentHedges": 72,
-    "skippedByCap": 16515,
-    "openCountLast": 3,
-    "fullyHedgedLast": 6,
-    "avgCandidatesPerTick": 59.674089068825914,
-    "avgDepthPassedPerTick": 21.251012145748987,
-    "hedgeRatePerEntry": 1.048780487804878,
-    "urgentHedgeShare": 0.5581395348837209
+    "skippedByCap": 18532,
+    "openCountLast": 4,
+    "fullyHedgedLast": 27,
+    "avgCandidatesPerTick": 57.508278145695364,
+    "avgDepthPassedPerTick": 21.514900662251655,
+    "hedgeRatePerEntry": 1.0344827586206897,
+    "urgentHedgeShare": 0.48
   }
 }

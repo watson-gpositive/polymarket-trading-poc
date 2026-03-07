@@ -14,7 +14,7 @@ const rows = fs.readFileSync(logPath, 'utf8').split(/\r?\n/).filter(Boolean).map
   try { return JSON.parse(l); } catch { return null; }
 }).filter(Boolean);
 
-function evalFor(prefix) {
+function evalFromHedges(prefix) {
   const hedges = rows.filter(r => r.type === `${prefix}_hedge` && Number(r.hedgeQty || 0) > 0);
   let cost = 0;
   let payout = 0;
@@ -43,11 +43,67 @@ function evalFor(prefix) {
   };
 }
 
+function evalScriptB() {
+  const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
+  let cost = 0;
+  let payout = 0;
+  let scaledTrades = 0;
+
+  for (const h of hedges) {
+    const totalCents = Number(h.totalCents || 0);
+    const qty = Number(h.shares || 0);
+    if (!qty || !totalCents) continue;
+
+    const perShareCost = totalCents / 100;
+    const maxQtyByBankroll = Math.max(0, Math.floor(bankrollEur / perShareCost));
+    const q = Math.max(0, Math.min(qty, maxQtyByBankroll));
+    if (!q) continue;
+
+    cost += q * perShareCost;
+    payout += q * (1 - feePct / 100);
+    scaledTrades += 1;
+  }
+
+  return {
+    tradesCounted: scaledTrades,
+    totalCostEur: Number(cost.toFixed(4)),
+    totalPayoutEur: Number(payout.toFixed(4)),
+    pnlEur: Number((payout - cost).toFixed(4)),
+    note: 'estimated from inventory_hedge events'
+  };
+}
+
+function evalScriptAEstimate() {
+  const planned = rows.filter(r => r.type === 'paper_order_planned');
+  let pnl = 0;
+  let counted = 0;
+
+  for (const p of planned) {
+    const edgeCents = Number(p.edgeCents || 0);
+    if (!edgeCents) continue;
+    const assumedPairCost = 1.0; // conservative: lock ~1€ notional per paired share
+    const q = Math.max(0, Math.floor(bankrollEur / assumedPairCost));
+    if (!q) continue;
+    // estimated net after winner fee
+    const netPerShare = (edgeCents / 100) - (feePct / 100);
+    pnl += q * netPerShare;
+    counted += 1;
+  }
+
+  return {
+    tradesCounted: counted,
+    pnlEur: Number(pnl.toFixed(4)),
+    note: 'rough estimate from planned opportunities, not realized fills'
+  };
+}
+
 const report = {
   ts: new Date().toISOString(),
-  assumptions: { bankrollEur, feePct, note: 'paper approximation from hedge events only' },
-  scriptC: evalFor('script_c'),
-  scriptD: evalFor('script_d')
+  assumptions: { bankrollEur, feePct, note: 'paper approximation from event logs' },
+  scriptA: evalScriptAEstimate(),
+  scriptB: evalScriptB(),
+  scriptC: evalFromHedges('script_c'),
+  scriptD: evalFromHedges('script_d')
 };
 
 const out = path.resolve(process.cwd(), 'logs', 'bankroll-pnl-latest.json');

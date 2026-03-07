@@ -40,6 +40,40 @@ function computeBankrollPnl(prefix, bankrollEur = 5, feePct = 2) {
   return { trades, pnlEur: Number((payout - cost).toFixed(4)) };
 }
 
+function computeScriptBBankrollPnl(bankrollEur = 5, feePct = 2) {
+  const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
+  let cost = 0;
+  let payout = 0;
+  let trades = 0;
+  for (const h of hedges) {
+    const totalCents = Number(h.totalCents || 0);
+    const qty = Number(h.shares || 0);
+    if (!qty || !totalCents) continue;
+    const perShareCost = totalCents / 100;
+    const q = Math.min(qty, Math.max(0, Math.floor(bankrollEur / perShareCost)));
+    if (!q) continue;
+    cost += q * perShareCost;
+    payout += q * (1 - feePct / 100);
+    trades += 1;
+  }
+  return { trades, pnlEur: Number((payout - cost).toFixed(4)) };
+}
+
+function computeScriptAEstimate(bankrollEur = 5, feePct = 2) {
+  const planned = rows.filter(r => r.type === 'paper_order_planned');
+  let pnl = 0;
+  let trades = 0;
+  for (const p of planned) {
+    const edgeCents = Number(p.edgeCents || 0);
+    if (!edgeCents) continue;
+    const q = Math.max(0, Math.floor(bankrollEur / 1.0));
+    if (!q) continue;
+    pnl += q * ((edgeCents / 100) - (feePct / 100));
+    trades += 1;
+  }
+  return { trades, pnlEur: Number(pnl.toFixed(4)) };
+}
+
 function computeUnhedgedMinutes(prefix) {
   const entries = rows.filter(r => r.type === `${prefix}_entry`);
   const hedges = rows.filter(r => r.type === `${prefix}_hedge`);
@@ -106,9 +140,24 @@ const report = {
     scriptC: { ...compare.scriptC, closureRate: computeClosureRate('script_c') },
     scriptD: { ...compare.scriptD, closureRate: computeClosureRate('script_d') },
   },
-  pnl5: { scriptC: computeBankrollPnl('script_c', 5, 2), scriptD: computeBankrollPnl('script_d', 5, 2) },
-  pnl50: { scriptC: computeBankrollPnl('script_c', 50, 2), scriptD: computeBankrollPnl('script_d', 50, 2) },
-  pnl500: { scriptC: computeBankrollPnl('script_c', 500, 2), scriptD: computeBankrollPnl('script_d', 500, 2) },
+  pnl5: {
+    scriptA: computeScriptAEstimate(5, 2),
+    scriptB: computeScriptBBankrollPnl(5, 2),
+    scriptC: computeBankrollPnl('script_c', 5, 2),
+    scriptD: computeBankrollPnl('script_d', 5, 2)
+  },
+  pnl50: {
+    scriptA: computeScriptAEstimate(50, 2),
+    scriptB: computeScriptBBankrollPnl(50, 2),
+    scriptC: computeBankrollPnl('script_c', 50, 2),
+    scriptD: computeBankrollPnl('script_d', 50, 2)
+  },
+  pnl500: {
+    scriptA: computeScriptAEstimate(500, 2),
+    scriptB: computeScriptBBankrollPnl(500, 2),
+    scriptC: computeBankrollPnl('script_c', 500, 2),
+    scriptD: computeBankrollPnl('script_d', 500, 2)
+  },
   exposure: { scriptC: computeUnhedgedMinutes('script_c'), scriptD: computeUnhedgedMinutes('script_d') },
 };
 
@@ -123,7 +172,7 @@ const summaryLines = [
   `  meaning: πόσο συχνά ένα entry καταφέρνει να κλείσει hedge (υψηλότερο = πιο ασφαλές).`,
   `KPI 2 Urgent hedge share: C=${(report.compare.scriptC?.urgentHedgeShare ?? 0).toFixed(3)} D=${(report.compare.scriptD?.urgentHedgeShare ?? 0).toFixed(3)}`,
   `  meaning: πόσα hedges έγιναν "στο όριο" (χαμηλότερο = καλύτερη ποιότητα execution).`,
-  `KPI 3 Bankroll PnL (€5/€50/€500): C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur}`,
+  `KPI 3 Bankroll PnL (€5/€50/€500): A=${report.pnl5.scriptA.pnlEur}/${report.pnl50.scriptA.pnlEur}/${report.pnl500.scriptA.pnlEur} B=${report.pnl5.scriptB.pnlEur}/${report.pnl50.scriptB.pnlEur}/${report.pnl500.scriptB.pnlEur} C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur}`,
   `  meaning: πόσο αποδίδει η ίδια λογική σε μικρό/μεσαίο/μεγαλύτερο κεφάλαιο.`,
   `KPI 4 Unhedged exposure time (avg min): C=${report.exposure.scriptC.avgMinutes ?? 'n/a'} D=${report.exposure.scriptD.avgMinutes ?? 'n/a'}`,
   `  meaning: πόση ώρα μένει ακάλυπτη θέση πριν κλείσει hedge (χαμηλότερο = λιγότερο ρίσκο).`,

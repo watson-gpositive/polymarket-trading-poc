@@ -26,3 +26,5 @@
 {"ts":"2026-03-07T13:11:42.098Z","phase":"done","task":"apply-next-actions","details":"changes implemented and daemons restarted","git":"4ce7546"}
 {"ts":"2026-03-07T14:12:05.468Z","phase":"start","task":"post-checkpoint-tuning","details":"apply checkpoint recommendations: deprioritize D, tune C urgency, add A diagnostics","git":"2c3d0a2"}
 {"ts":"2026-03-07T14:16:34.143Z","phase":"done","task":"post-checkpoint-tuning","details":"implemented A diagnostics, C safety tuning, D low-priority tuning, and B hedge diagnostics","git":"2c3d0a2"}
+{"ts":"2026-03-07T15:08:48.584Z","phase":"start","task":"apply-15h-recs","details":"tune C/D and extend PnL reporting to A/B","git":"a88875f"}
+{"ts":"2026-03-07T15:11:25.399Z","phase":"done","task":"apply-15h-recs","details":"applied C/D tuning and extended KPI PnL to include A/B","git":"a88875f"}

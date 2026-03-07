@@ -21,7 +21,7 @@ function category(title = '', slug = '') {
 }
 
 function caps() {
-  const maxOpen = config.v2MaxOpenPositions;
+  const maxOpen = Math.min(config.v2MaxOpenPositions, config.dMaxOpenPositions);
   return {
     total: maxOpen,
     perCat: {
@@ -129,7 +129,8 @@ async function tick() {
 async function main() {
   logEvent('script_d_startup', {
     loopIntervalSec: config.loopIntervalSec,
-    maxOpenPositions: config.v2MaxOpenPositions,
+    maxOpenPositions: Math.min(config.v2MaxOpenPositions, config.dMaxOpenPositions),
+    dMaxOpenPositions: config.dMaxOpenPositions,
     rebalanceStep: config.v2RebalanceStepShares,
     dMaxNewEntriesPerTick: config.dMaxNewEntriesPerTick,
     dMinEntryPriceCents: config.dMinEntryPriceCents,
