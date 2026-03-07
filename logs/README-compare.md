@@ -13,7 +13,8 @@ npm run report:compare
 ## 2) Πώς το διαβάζεις
 
 - `scriptA` = strict pair-arb logic
-- `scriptB` = inventory + dynamic hedge logic
+- `scriptB` = inventory + dynamic hedge logic (v1)
+- `scriptBv2` = mimic inventory + rebalance logic (v2)
 
 Κρίσιμα fields:
 - `ticks`: πόσους κύκλους έτρεξε

@@ -15,7 +15,9 @@
     "analyze:wallets": "node src/analyzeWallets.js",
     "start:inventory": "node src/inventoryRunner.js",
     "start:inventory:once": "RUN_ONCE=true node src/inventoryRunner.js",
-    "report:compare": "node src/compareLogs.js"
+    "report:compare": "node src/compareLogs.js",
+    "start:inventory:v2": "node src/inventoryRunnerV2.js",
+    "start:inventory:v2:once": "RUN_ONCE=true node src/inventoryRunnerV2.js"
   },
   "engines": {
     "node": ">=20"

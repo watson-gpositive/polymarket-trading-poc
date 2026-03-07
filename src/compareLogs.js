@@ -60,6 +60,31 @@ for (const r of rows) {
   }
 }
 
+const B2 = {
+  script: 'B_v2_mimic_inventory_hedge',
+  ticks: 0,
+  candidates: 0,
+  depthPassed: 0,
+  entries: 0,
+  hedges: 0,
+  urgentHedges: 0,
+  openCountLast: 0,
+  fullyHedgedLast: 0,
+};
+
+for (const r of rows) {
+  if (r.type === 'inventory_v2_tick_summary') {
+    B2.ticks += 1;
+    B2.candidates += Number(r.candidates || 0);
+    B2.depthPassed += Number(r.depthPassed || 0);
+    B2.entries += Number(r.entries || 0);
+    B2.hedges += Number(r.hedges || 0);
+    B2.urgentHedges += Number(r.urgentHedges || 0);
+    B2.openCountLast = Number(r.openCount || 0);
+    B2.fullyHedgedLast = Number(r.fullyHedged || 0);
+  }
+}
+
 const report = {
   ts: new Date().toISOString(),
   window: { firstTs, lastTs, totalRows: rows.length },
@@ -73,6 +98,13 @@ const report = {
     avgCandidatesPerTick: B.ticks ? B.candidates / B.ticks : 0,
     avgDepthPassedPerTick: B.ticks ? B.depthPassed / B.ticks : 0,
     hedgeRatePerEntry: B.entries ? B.hedges / B.entries : 0,
+  },
+  scriptBv2: {
+    ...B2,
+    avgCandidatesPerTick: B2.ticks ? B2.candidates / B2.ticks : 0,
+    avgDepthPassedPerTick: B2.ticks ? B2.depthPassed / B2.ticks : 0,
+    hedgeRatePerEntry: B2.entries ? B2.hedges / B2.entries : 0,
+    urgentHedgeShare: B2.hedges ? B2.urgentHedges / B2.hedges : 0,
   }
 };
 
