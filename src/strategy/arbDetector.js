@@ -25,7 +25,7 @@ export function detectTwoOutcomeArb(markets, cfg) {
     const no1 = p[1].no ?? (100 - p[1].yes);
     const noSum = no0 + no1;
 
-    const threshold = 100 - cfg.minEdgeCents - cfg.slippageBufferCents;
+    const threshold = cfg.arbTriggerMaxTotalCents;
 
     if (yesSum <= threshold) {
       opportunities.push({
