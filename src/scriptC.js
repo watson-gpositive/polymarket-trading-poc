@@ -37,7 +37,11 @@ function getCandidates(markets) {
     if (p0 == null || p1 == null) continue;
     const low = Math.min(p0, p1);
     const side = p0 <= p1 ? 0 : 1;
+    const spread = Math.abs(p0 - p1);
+    const total = p0 + p1;
     if (low < p.entryMin || low > p.entryMax) continue;
+    if (spread < config.cMinSpreadCents) continue;
+    if (total > config.cHedgeMaxTotalCents + 1) continue;
 
     out.push({
       marketId: m.id, title: m.title, category: c, p0, p1, side, low, type: 'YES_PAIR_ARB',
@@ -115,7 +119,8 @@ async function main() {
     cTargetSharesPerTrade: config.cTargetSharesPerTrade,
     v2RebalanceStepShares: config.v2RebalanceStepShares,
     cHedgeMaxTotalCents: config.cHedgeMaxTotalCents,
-    cHedgeUrgencyTicks: config.cHedgeUrgencyTicks
+    cHedgeUrgencyTicks: config.cHedgeUrgencyTicks,
+    cMinSpreadCents: config.cMinSpreadCents
   });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;

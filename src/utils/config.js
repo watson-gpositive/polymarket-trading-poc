@@ -45,6 +45,8 @@ export const config = {
   cTargetSharesPerTrade: toNum(process.env.C_TARGET_SHARES_PER_TRADE, 5),
   cHedgeMaxTotalCents: toNum(process.env.C_HEDGE_MAX_TOTAL_CENTS, 100),
   cHedgeUrgencyTicks: toNum(process.env.C_HEDGE_URGENCY_TICKS, 5),
+  cMinSpreadCents: toNum(process.env.C_MIN_SPREAD_CENTS, 3),
+  bMaxEntryTotalCents: toNum(process.env.B_MAX_ENTRY_TOTAL_CENTS, 101),
   dEnabled: (process.env.D_ENABLED ?? 'true') === 'true',
   dMaxOpenPositions: toNum(process.env.D_MAX_OPEN_POSITIONS, 20),
   dMaxExposureTicks: toNum(process.env.D_MAX_EXPOSURE_TICKS, 12),

@@ -23,8 +23,10 @@ function pickCandidates(markets) {
     // inventory style: enter one side when it's cheap enough and liquid
     const low = Math.min(p0, p1);
     const side = p0 <= p1 ? 0 : 1;
+    const total = p0 + p1;
     if (low < config.invEntryMinPriceCents) continue;
     if (low > config.invEntryMaxPriceCents) continue;
+    if (total > config.bMaxEntryTotalCents) continue;
 
     out.push({
       marketId: m.id,
@@ -142,6 +144,7 @@ async function main() {
     invEntryMaxPriceCents: config.invEntryMaxPriceCents,
     invHedgeMaxTotalCents: config.invHedgeMaxTotalCents,
     bHedgeUrgencyTicks: config.bHedgeUrgencyTicks,
+    bMaxEntryTotalCents: config.bMaxEntryTotalCents,
     targetSharesPerTrade: config.targetSharesPerTrade
   });
 

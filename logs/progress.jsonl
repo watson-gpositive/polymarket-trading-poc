@@ -30,3 +30,4 @@
 {"ts":"2026-03-07T15:11:25.399Z","phase":"done","task":"apply-15h-recs","details":"applied C/D tuning and extended KPI PnL to include A/B","git":"a88875f"}
 {"ts":"2026-03-07T16:17:38.537Z","phase":"start","task":"apply-latest-recommendations","details":"set C as default baseline, tune C urgent dependence, and add D exposure timeout controls","git":"fbbe384"}
 {"ts":"2026-03-07T16:19:58.999Z","phase":"done","task":"apply-latest-recommendations","details":"implemented C default baseline, reduced D aggressiveness with pause + exposure timeout, and kept rationale-ready reporting","git":"fbbe384"}
+{"ts":"2026-03-07T19:06:58.516Z","phase":"start","task":"live-tuning-cycle","details":"implementing C entry-quality filter + B fee/slippage gate + D exposure guard tuning","git":"6bcfa18"}
