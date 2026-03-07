@@ -1,2 +1,4 @@
 {"ts":"2026-03-06T23:35:33.814Z","phase":"start","task":"auditable-progress-logging","details":"adding STATUS.md and progress.jsonl protocol","git":"816489d"}
 {"ts":"2026-03-06T23:35:34.119Z","phase":"done","task":"auditable-progress-logging","details":"protocol installed","git":"816489d"}
+{"ts":"2026-03-07T00:09:46.588Z","phase":"start","task":"market-diagnostics","details":"adding analysis script for yes/no sum distribution and near-arb ranking","git":"d6bcf53"}
+{"ts":"2026-03-07T00:09:47.521Z","phase":"done","task":"market-diagnostics","details":"analysis script added and snapshot generated","git":"d6bcf53"}

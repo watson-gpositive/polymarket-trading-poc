@@ -1,0 +1,137 @@
+
+> polymarket-trading-poc@0.1.0 analyze
+> node src/analyze.js
+
+{
+  "stats": {
+    "totalActive": 500,
+    "twoOutcomeWithPrices": 500,
+    "under100": 0,
+    "at100": 437,
+    "over100": 63,
+    "minSum": 100,
+    "maxSum": 101
+  },
+  "topCheapest": [
+    {
+      "id": "531202",
+      "title": "BitBoy convicted?",
+      "category": "unknown",
+      "p0": 14,
+      "p1": 86,
+      "sum": 100
+    },
+    {
+      "id": "540816",
+      "title": "Russia-Ukraine Ceasefire before GTA VI?",
+      "category": "unknown",
+      "p0": 58,
+      "p1": 42,
+      "sum": 100
+    },
+    {
+      "id": "540844",
+      "title": "Will bitcoin hit $1m before GTA VI?",
+      "category": "unknown",
+      "p0": 49,
+      "p1": 51,
+      "sum": 100
+    },
+    {
+      "id": "540881",
+      "title": "GTA VI released before June 2026?",
+      "category": "unknown",
+      "p0": 2,
+      "p1": 98,
+      "sum": 100
+    },
+    {
+      "id": "544092",
+      "title": "Will Harvey Weinstein be sentenced to no prison time?",
+      "category": "unknown",
+      "p0": 46,
+      "p1": 54,
+      "sum": 100
+    },
+    {
+      "id": "544093",
+      "title": "Will Harvey Weinstein be sentenced to less than 5 years in prison?",
+      "category": "unknown",
+      "p0": 1,
+      "p1": 99,
+      "sum": 100
+    },
+    {
+      "id": "544094",
+      "title": "Will Harvey Weinstein be sentenced to between 5 and 10 years in prison?",
+      "category": "unknown",
+      "p0": 9,
+      "p1": 91,
+      "sum": 100
+    },
+    {
+      "id": "544095",
+      "title": "Will Harvey Weinstein be sentenced to between 10 and 20 years in prison?",
+      "category": "unknown",
+      "p0": 6,
+      "p1": 94,
+      "sum": 100
+    },
+    {
+      "id": "544096",
+      "title": "Will Harvey Weinstein be sentenced to between 20 and 30 years in prison?",
+      "category": "unknown",
+      "p0": 35,
+      "p1": 65,
+      "sum": 100
+    },
+    {
+      "id": "544097",
+      "title": "Will Harvey Weinstein be sentenced to more than 30 years in prison?",
+      "category": "unknown",
+      "p0": 2,
+      "p1": 98,
+      "sum": 100
+    },
+    {
+      "id": "546612",
+      "title": "Will OpenAI launch a new consumer hardware product by March 31, 2026?",
+      "category": "unknown",
+      "p0": 2,
+      "p1": 98,
+      "sum": 100
+    },
+    {
+      "id": "550694",
+      "title": "Will Italy qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "p0": 57,
+      "p1": 43,
+      "sum": 100
+    },
+    {
+      "id": "550703",
+      "title": "Will Sweden qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "p0": 29,
+      "p1": 71,
+      "sum": 100
+    },
+    {
+      "id": "550706",
+      "title": "Will Poland qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "p0": 35,
+      "p1": 65,
+      "sum": 100
+    },
+    {
+      "id": "550708",
+      "title": "Will Ukraine qualify for the 2026 FIFA World Cup?",
+      "category": "unknown",
+      "p0": 28,
+      "p1": 72,
+      "sum": 100
+    }
+  ]
+}

@@ -9,7 +9,8 @@
     "start:once": "RUN_ONCE=true node src/index.js",
     "progress:start": "node scripts/progress-log.js start",
     "progress:done": "node scripts/progress-log.js done",
-    "progress:blocked": "node scripts/progress-log.js blocked"
+    "progress:blocked": "node scripts/progress-log.js blocked",
+    "analyze": "node src/analyze.js"
   },
   "engines": {
     "node": ">=20"
