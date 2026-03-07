@@ -8,6 +8,7 @@ cd "$ROOT"
 npm run report:compare > logs/compare-latest.stdout.txt
 npm run report:pnl -- 5 2 > logs/bankroll-pnl-latest.stdout.txt
 npm run report:decision > logs/decision-kpis-latest.stdout.txt
+npm run report:trading-md > logs/trading-md-update.stdout.txt
 
 # Build lightweight hourly summary
 TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
