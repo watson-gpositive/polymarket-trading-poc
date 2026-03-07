@@ -1,0 +1,5 @@
+
+> polymarket-trading-poc@0.1.0 report:notion-sync
+> node src/syncTradingNotion.js
+
+OK: Notion trading page synced (31cb4225f2d581ee8df4e08ca2e68e92)

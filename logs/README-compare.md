@@ -48,7 +48,13 @@ Script:
   - `logs/hourly-summary-latest.txt`
   - `logs/hourly-summary-history.log`
 
-## 5) Πού είναι τα raw logs
+## 5) Notion sync (auto)
+
+- `npm run report:notion-sync`
+- Sync target page id stored at: `logs/notion-trading-page-id.txt`
+- Hourly checkpoint καλεί το Notion sync αυτόματα.
+
+## 6) Πού είναι τα raw logs
 
 - `logs/events.jsonl` = live events
 - `logs/progress.jsonl` = audit log εργασιών/υλοποίησης
