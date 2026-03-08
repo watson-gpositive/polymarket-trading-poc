@@ -43,6 +43,26 @@ function evalFromHedges(prefix) {
   };
 }
 
+function evalScriptA2() {
+  const trades = rows.filter(r => r.type === 'script_a2_trade');
+  let pnl = 0;
+  let counted = 0;
+  for (const t of trades) {
+    const sumCents = Number(t.sumCents || 0);
+    const microShares = Number(t.microShares || 0);
+    const gross = Number(t.hedgedGrossEur || 0);
+    if (!sumCents || !microShares || !Number.isFinite(gross)) continue;
+
+    const perShareCost = sumCents / 100;
+    const q = Math.min(microShares, Math.max(0, Math.floor(bankrollEur / perShareCost)));
+    if (!q) continue;
+
+    pnl += (gross / microShares) * q;
+    counted += 1;
+  }
+  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_a2_trade events' };
+}
+
 function evalScriptB() {
   const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
   let cost = 0;
@@ -101,6 +121,7 @@ const report = {
   ts: new Date().toISOString(),
   assumptions: { bankrollEur, feePct, note: 'paper approximation from event logs' },
   scriptA: evalScriptAEstimate(),
+  scriptA2: evalScriptA2(),
   scriptB: evalScriptB(),
   scriptC: evalFromHedges('script_c'),
   scriptD: evalFromHedges('script_d')

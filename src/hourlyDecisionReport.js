@@ -74,6 +74,29 @@ function computeScriptAEstimate(bankrollEur = 5, feePct = 2) {
   return { trades, pnlEur: Number(pnl.toFixed(4)) };
 }
 
+function computeScriptA2Pnl(bankrollEur = 5) {
+  const trades = rows.filter(r => r.type === 'script_a2_trade');
+  let pnl = 0;
+  let counted = 0;
+  for (const t of trades) {
+    const sumCents = Number(t.sumCents || 0);
+    const microShares = Number(t.microShares || 0);
+    const gross = Number(t.hedgedGrossEur || 0);
+    if (!sumCents || !microShares || !Number.isFinite(gross)) continue;
+
+    const perShareCost = sumCents / 100;
+    const baseQty = microShares;
+    const maxQtyByBankroll = Math.max(0, Math.floor(bankrollEur / perShareCost));
+    const q = Math.min(baseQty, maxQtyByBankroll);
+    if (!q) continue;
+
+    const perShareGross = gross / baseQty;
+    pnl += perShareGross * q;
+    counted += 1;
+  }
+  return { trades: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_a2_trade events' };
+}
+
 function computeUnhedgedMinutes(prefix) {
   const entries = rows.filter(r => r.type === `${prefix}_entry`);
   const hedges = rows.filter(r => r.type === `${prefix}_hedge`);
@@ -136,24 +159,28 @@ const report = {
   ts: new Date().toISOString(),
   compare: {
     scriptA: compare.scriptA,
+    scriptA2: compare.scriptA2,
     scriptB: compare.scriptB,
     scriptC: { ...compare.scriptC, closureRate: computeClosureRate('script_c') },
     scriptD: { ...compare.scriptD, closureRate: computeClosureRate('script_d') },
   },
   pnl5: {
     scriptA: computeScriptAEstimate(5, 2),
+    scriptA2: computeScriptA2Pnl(5),
     scriptB: computeScriptBBankrollPnl(5, 2),
     scriptC: computeBankrollPnl('script_c', 5, 2),
     scriptD: computeBankrollPnl('script_d', 5, 2)
   },
   pnl50: {
     scriptA: computeScriptAEstimate(50, 2),
+    scriptA2: computeScriptA2Pnl(50),
     scriptB: computeScriptBBankrollPnl(50, 2),
     scriptC: computeBankrollPnl('script_c', 50, 2),
     scriptD: computeBankrollPnl('script_d', 50, 2)
   },
   pnl500: {
     scriptA: computeScriptAEstimate(500, 2),
+    scriptA2: computeScriptA2Pnl(500),
     scriptB: computeScriptBBankrollPnl(500, 2),
     scriptC: computeBankrollPnl('script_c', 500, 2),
     scriptD: computeBankrollPnl('script_d', 500, 2)
@@ -172,7 +199,7 @@ const summaryLines = [
   `  meaning: πόσο συχνά ένα entry καταφέρνει να κλείσει hedge (υψηλότερο = πιο ασφαλές).`,
   `KPI 2 Urgent hedge share: C=${(report.compare.scriptC?.urgentHedgeShare ?? 0).toFixed(3)} D=${(report.compare.scriptD?.urgentHedgeShare ?? 0).toFixed(3)}`,
   `  meaning: πόσα hedges έγιναν "στο όριο" (χαμηλότερο = καλύτερη ποιότητα execution).`,
-  `KPI 3 Bankroll PnL (€5/€50/€500): A=${report.pnl5.scriptA.pnlEur}/${report.pnl50.scriptA.pnlEur}/${report.pnl500.scriptA.pnlEur} B=${report.pnl5.scriptB.pnlEur}/${report.pnl50.scriptB.pnlEur}/${report.pnl500.scriptB.pnlEur} C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur}`,
+  `KPI 3 Bankroll PnL (€5/€50/€500): A=${report.pnl5.scriptA.pnlEur}/${report.pnl50.scriptA.pnlEur}/${report.pnl500.scriptA.pnlEur} A2=${report.pnl5.scriptA2.pnlEur}/${report.pnl50.scriptA2.pnlEur}/${report.pnl500.scriptA2.pnlEur} B=${report.pnl5.scriptB.pnlEur}/${report.pnl50.scriptB.pnlEur}/${report.pnl500.scriptB.pnlEur} C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur}`,
   `  meaning: πόσο αποδίδει η ίδια λογική σε μικρό/μεσαίο/μεγαλύτερο κεφάλαιο.`,
   `KPI 4 Unhedged exposure time (avg min): C=${report.exposure.scriptC.avgMinutes ?? 'n/a'} D=${report.exposure.scriptD.avgMinutes ?? 'n/a'}`,
   `  meaning: πόση ώρα μένει ακάλυπτη θέση πριν κλείσει hedge (χαμηλότερο = λιγότερο ρίσκο).`,

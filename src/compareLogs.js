@@ -12,6 +12,7 @@ const rows = fs.readFileSync(logPath, 'utf8').split(/\r?\n/).filter(Boolean).map
 }).filter(Boolean);
 
 const A = { script: 'A_strict_pair_arb', ticks: 0, opportunities: 0, depthChecked: 0, tradableAfterDepth: 0, accepted: 0, partialSimulations: 0 };
+const A2 = { script: 'A2_dual_threshold_micro', ticks: 0, observedCount: 0, tradableCandidateCount: 0, depthPass: 0, simPass: 0, accepted: 0, microShares: 0 };
 const B = { script: 'B_inventory_dynamic_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, openCountLast: 0, hedgedCountLast: 0 };
 const C = { script: 'C_mimic_inventory_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, openCountLast: 0, fullyHedgedLast: 0 };
 const D = { script: 'D_capped_multi_category_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, skippedByCap: 0, openCountLast: 0, fullyHedgedLast: 0 };
@@ -30,6 +31,15 @@ for (const r of rows) {
     A.tradableAfterDepth += Number(r.tradableAfterDepth || 0);
     A.accepted += Number(r.accepted || 0);
     A.partialSimulations += Number(r.partialSimulations || 0);
+  }
+  if (r.type === 'script_a2_tick_summary') {
+    A2.ticks += 1;
+    A2.observedCount += Number(r.observedCount || 0);
+    A2.tradableCandidateCount += Number(r.tradableCandidateCount || 0);
+    A2.depthPass += Number(r.depthPass || 0);
+    A2.simPass += Number(r.simPass || 0);
+    A2.accepted += Number(r.accepted || 0);
+    A2.microShares = Number(r.microShares || A2.microShares || 0);
   }
   if (r.type === 'inventory_tick_summary') {
     B.ticks += 1;
@@ -77,6 +87,13 @@ const report = {
     ...A,
     avgOpportunitiesPerTick: A.ticks ? A.opportunities / A.ticks : 0,
     avgTradableAfterDepthPerTick: A.ticks ? A.tradableAfterDepth / A.ticks : 0,
+  },
+  scriptA2: {
+    ...A2,
+    avgObservedPerTick: A2.ticks ? A2.observedCount / A2.ticks : 0,
+    avgTradableCandidatesPerTick: A2.ticks ? A2.tradableCandidateCount / A2.ticks : 0,
+    avgDepthPassPerTick: A2.ticks ? A2.depthPass / A2.ticks : 0,
+    acceptanceRateFromObserved: A2.observedCount ? A2.accepted / A2.observedCount : 0,
   },
   scriptB: withAvg(B),
   scriptC: { ...withAvg(C), urgentHedgeShare: C.hedges ? C.urgentHedges / C.hedges : 0 },
