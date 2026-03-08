@@ -27,7 +27,9 @@
     "report:trading-md": "node src/updateTradingMd.js",
     "report:notion-sync": "node src/syncTradingNotion.js",
     "start:script:a2": "node src/scriptA2.js",
-    "start:script:a2:once": "RUN_ONCE=true node src/scriptA2.js"
+    "start:script:a2:once": "RUN_ONCE=true node src/scriptA2.js",
+    "start:script:e": "node src/scriptE.js",
+    "start:script:e:once": "RUN_ONCE=true node src/scriptE.js"
   },
   "engines": {
     "node": ">=20"

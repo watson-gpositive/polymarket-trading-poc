@@ -1,9 +1,9 @@
 {
-  "ts": "2026-03-08T12:05:02.415Z",
+  "ts": "2026-03-08T20:12:09.801Z",
   "compare": {
     "scriptA": {
       "script": "A_strict_pair_arb",
-      "ticks": 601,
+      "ticks": 1575,
       "opportunities": 0,
       "depthChecked": 0,
       "tradableAfterDepth": 0,
@@ -14,35 +14,35 @@
     },
     "scriptA2": {
       "script": "A2_dual_threshold_micro",
-      "ticks": 305,
-      "observedCount": 159597,
+      "ticks": 1278,
+      "observedCount": 663535,
       "tradableCandidateCount": 0,
       "depthPass": 0,
       "simPass": 0,
       "accepted": 0,
       "microShares": 5,
-      "avgObservedPerTick": 523.2688524590164,
+      "avgObservedPerTick": 519.197965571205,
       "avgTradableCandidatesPerTick": 0,
       "avgDepthPassPerTick": 0,
       "acceptanceRateFromObserved": 0
     },
     "scriptB": {
       "script": "B_inventory_dynamic_hedge",
-      "ticks": 601,
-      "candidates": 18030,
-      "depthPassed": 16946,
+      "ticks": 1574,
+      "candidates": 46770,
+      "depthPassed": 43431,
       "entries": 30,
       "hedges": 30,
       "openCountLast": 0,
-      "hedgedCountLast": 30,
-      "avgCandidatesPerTick": 30,
-      "avgDepthPassedPerTick": 28.196339434276208,
+      "hedgedCountLast": 0,
+      "avgCandidatesPerTick": 29.7141041931385,
+      "avgDepthPassedPerTick": 27.592757306226176,
       "hedgeRatePerEntry": 1
     },
     "scriptC": {
       "script": "C_mimic_inventory_hedge",
-      "ticks": 601,
-      "candidates": 601,
+      "ticks": 1574,
+      "candidates": 1574,
       "depthPassed": 0,
       "entries": 0,
       "hedges": 0,
@@ -56,20 +56,32 @@
     },
     "scriptD": {
       "script": "D_capped_multi_category_hedge",
-      "ticks": 598,
-      "candidates": 26011,
-      "depthPassed": 12856,
-      "entries": 29,
-      "hedges": 26,
+      "ticks": 1571,
+      "candidates": 67107,
+      "depthPassed": 32986,
+      "entries": 46,
+      "hedges": 29,
       "urgentHedges": 0,
-      "skippedByCap": 8613,
-      "openCountLast": 3,
-      "fullyHedgedLast": 26,
-      "avgCandidatesPerTick": 43.49665551839465,
-      "avgDepthPassedPerTick": 21.498327759197323,
-      "hedgeRatePerEntry": 0.896551724137931,
+      "skippedByCap": 23298,
+      "openCountLast": 15,
+      "fullyHedgedLast": 0,
+      "avgCandidatesPerTick": 42.716104392106935,
+      "avgDepthPassedPerTick": 20.99681731381286,
+      "hedgeRatePerEntry": 0.6304347826086957,
       "urgentHedgeShare": 0,
-      "closureRate": 0.896551724137931
+      "closureRate": 0.9354838709677419
+    },
+    "scriptE": {
+      "script": "E_maker_first",
+      "ticks": 1,
+      "scanned": 5,
+      "candidates": 5,
+      "executed": 5,
+      "tradesTodayLast": 5,
+      "realizedPnlEurLast": 48.4,
+      "avgScannedPerTick": 5,
+      "avgCandidatesPerTick": 5,
+      "avgExecutedPerTick": 5
     }
   },
   "pnl5": {
@@ -91,8 +103,12 @@
       "pnlEur": 0
     },
     "scriptD": {
-      "trades": 26,
-      "pnlEur": -2.94
+      "trades": 29,
+      "pnlEur": -3.24
+    },
+    "scriptE": {
+      "trades": 5,
+      "pnlEur": 48.4
     }
   },
   "pnl50": {
@@ -114,8 +130,12 @@
       "pnlEur": 0
     },
     "scriptD": {
-      "trades": 26,
-      "pnlEur": -33.99
+      "trades": 29,
+      "pnlEur": -36.99
+    },
+    "scriptE": {
+      "trades": 5,
+      "pnlEur": 48.4
     }
   },
   "pnl500": {
@@ -137,8 +157,12 @@
       "pnlEur": 0
     },
     "scriptD": {
-      "trades": 26,
-      "pnlEur": -34.5
+      "trades": 29,
+      "pnlEur": -37.5
+    },
+    "scriptE": {
+      "trades": 5,
+      "pnlEur": 48.4
     }
   },
   "exposure": {
@@ -148,9 +172,9 @@
       "maxMinutes": null
     },
     "scriptD": {
-      "closedCount": 26,
-      "avgMinutes": 0.5,
-      "maxMinutes": 0.56
+      "closedCount": 29,
+      "avgMinutes": 6.46,
+      "maxMinutes": 173.11
     }
   },
   "suggestions": [

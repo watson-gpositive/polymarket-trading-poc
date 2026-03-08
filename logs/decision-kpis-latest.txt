@@ -1,11 +1,11 @@
-[2026-03-08T12:05:02.424Z] Decision checkpoint
-KPI 1 Hedge closure rate: C=0.000 D=0.897
+[2026-03-08T20:12:09.829Z] Decision checkpoint
+KPI 1 Hedge closure rate: C=0.000 D=0.935
   meaning: πόσο συχνά ένα entry καταφέρνει να κλείσει hedge (υψηλότερο = πιο ασφαλές).
 KPI 2 Urgent hedge share: C=0.000 D=0.000
   meaning: πόσα hedges έγιναν "στο όριο" (χαμηλότερο = καλύτερη ποιότητα execution).
-KPI 3 Bankroll PnL (€5/€50/€500): A=0/0/0 A2=0/0/0 B=-3.26/-36.11/-36.5 C=0/0/0 D=-2.94/-33.99/-34.5
+KPI 3 Bankroll PnL (€5/€50/€500): A=0/0/0 A2=0/0/0 B=-3.26/-36.11/-36.5 C=0/0/0 D=-3.24/-36.99/-37.5 E=48.4/48.4/48.4
   meaning: πόσο αποδίδει η ίδια λογική σε μικρό/μεσαίο/μεγαλύτερο κεφάλαιο.
-KPI 4 Unhedged exposure time (avg min): C=n/a D=0.5
+KPI 4 Unhedged exposure time (avg min): C=n/a D=6.46
   meaning: πόση ώρα μένει ακάλυπτη θέση πριν κλείσει hedge (χαμηλότερο = λιγότερο ρίσκο).
 Suggestions:
 - Script D έχει καλύτερο ή ίσο hedge closure rate από το C.

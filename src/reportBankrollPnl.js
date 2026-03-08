@@ -63,6 +63,23 @@ function evalScriptA2() {
   return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_a2_trade events' };
 }
 
+function evalScriptE() {
+  const trades = rows.filter(r => r.type === 'script_e_trade');
+  let pnl = 0;
+  let counted = 0;
+  for (const t of trades) {
+    const qty = Number(t.qty || 0);
+    const spreadCents = Number(t.spreadCents || 0);
+    const perShareCost = (100 - spreadCents) / 100;
+    const maxQty = Math.max(0, Math.floor(bankrollEur / Math.max(0.01, perShareCost)));
+    const q = Math.min(qty, maxQty);
+    if (!q) continue;
+    pnl += Number(t.netPerShareEur || 0) * q;
+    counted += 1;
+  }
+  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_e_trade events' };
+}
+
 function evalScriptB() {
   const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
   let cost = 0;
@@ -124,6 +141,7 @@ const report = {
   scriptA2: evalScriptA2(),
   scriptB: evalScriptB(),
   scriptC: evalFromHedges('script_c'),
+  scriptE: evalScriptE(),
   scriptD: evalFromHedges('script_d')
 };
 

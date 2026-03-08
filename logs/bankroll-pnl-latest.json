@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-08T12:05:02.169Z",
+  "ts": "2026-03-08T20:12:09.512Z",
   "assumptions": {
     "bankrollEur": 5,
     "feePct": 2,
@@ -28,10 +28,15 @@
     "totalPayoutEur": 0,
     "pnlEur": 0
   },
+  "scriptE": {
+    "tradesCounted": 5,
+    "pnlEur": 48.4,
+    "note": "from script_e_trade events"
+  },
   "scriptD": {
-    "tradesCounted": 26,
-    "totalCostEur": 113.68,
-    "totalPayoutEur": 110.74,
-    "pnlEur": -2.94
+    "tradesCounted": 29,
+    "totalCostEur": 128.68,
+    "totalPayoutEur": 125.44,
+    "pnlEur": -3.24
   }
 }

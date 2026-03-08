@@ -16,6 +16,7 @@ const A2 = { script: 'A2_dual_threshold_micro', ticks: 0, observedCount: 0, trad
 const B = { script: 'B_inventory_dynamic_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, openCountLast: 0, hedgedCountLast: 0 };
 const C = { script: 'C_mimic_inventory_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, openCountLast: 0, fullyHedgedLast: 0 };
 const D = { script: 'D_capped_multi_category_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, skippedByCap: 0, openCountLast: 0, fullyHedgedLast: 0 };
+const E = { script: 'E_maker_first', ticks: 0, scanned: 0, candidates: 0, executed: 0, tradesTodayLast: 0, realizedPnlEurLast: 0 };
 
 let firstTs = null;
 let lastTs = null;
@@ -71,6 +72,14 @@ for (const r of rows) {
     D.openCountLast = Number(r.openCount || 0);
     D.fullyHedgedLast = Number(r.fullyHedged || 0);
   }
+  if (r.type === 'script_e_tick_summary') {
+    E.ticks += 1;
+    E.scanned += Number(r.scanned || 0);
+    E.candidates += Number(r.candidates || 0);
+    E.executed += Number(r.executed || 0);
+    E.tradesTodayLast = Number(r.tradesToday || 0);
+    E.realizedPnlEurLast = Number(r.realizedPnlEur || 0);
+  }
 }
 
 const withAvg = s => ({
@@ -98,6 +107,12 @@ const report = {
   scriptB: withAvg(B),
   scriptC: { ...withAvg(C), urgentHedgeShare: C.hedges ? C.urgentHedges / C.hedges : 0 },
   scriptD: { ...withAvg(D), urgentHedgeShare: D.hedges ? D.urgentHedges / D.hedges : 0 },
+  scriptE: {
+    ...E,
+    avgScannedPerTick: E.ticks ? E.scanned / E.ticks : 0,
+    avgCandidatesPerTick: E.ticks ? E.candidates / E.ticks : 0,
+    avgExecutedPerTick: E.ticks ? E.executed / E.ticks : 0,
+  }
 };
 
 const outPath = path.resolve(process.cwd(), 'logs', 'compare-latest.json');
