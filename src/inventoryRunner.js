@@ -26,7 +26,8 @@ function pickCandidates(markets) {
     const total = p0 + p1;
     if (low < config.invEntryMinPriceCents) continue;
     if (low > config.invEntryMaxPriceCents) continue;
-    if (total > config.bMaxEntryTotalCents) continue;
+    const maxTotalByEdge = 100 - config.bMinNetEdgeCents;
+    if (total > Math.min(config.bMaxEntryTotalCents, maxTotalByEdge)) continue;
 
     out.push({
       marketId: m.id,
@@ -90,9 +91,9 @@ async function tick() {
       const hedgePrice = existing.side === 0 ? c.p1 : c.p0;
       const total = existing.entryPriceCents + hedgePrice;
       const age = tickNo - (existing.openTick || tickNo);
-      const strictMax = config.invHedgeMaxTotalCents;
-      const dynamicMax = Math.min(103, strictMax + Math.floor(age / 2));
-      const canHedge = total <= strictMax || (age >= config.bHedgeUrgencyTicks && total <= dynamicMax);
+      const strictMax = Math.min(config.invHedgeMaxTotalCents, 100 - config.bMinNetEdgeCents);
+      const dynamicMax = strictMax; // disable loss-making urgency hedges
+      const canHedge = total <= strictMax;
 
       if (canHedge) {
         existing.hedged = true;
@@ -145,6 +146,7 @@ async function main() {
     invHedgeMaxTotalCents: config.invHedgeMaxTotalCents,
     bHedgeUrgencyTicks: config.bHedgeUrgencyTicks,
     bMaxEntryTotalCents: config.bMaxEntryTotalCents,
+    bMinNetEdgeCents: config.bMinNetEdgeCents,
     targetSharesPerTrade: config.targetSharesPerTrade
   });
 

@@ -51,6 +51,8 @@ export const config = {
   dMaxOpenPositions: toNum(process.env.D_MAX_OPEN_POSITIONS, 20),
   dMaxExposureTicks: toNum(process.env.D_MAX_EXPOSURE_TICKS, 12),
   bHedgeUrgencyTicks: toNum(process.env.B_HEDGE_URGENCY_TICKS, 6),
+  bMinNetEdgeCents: toNum(process.env.B_MIN_NET_EDGE_CENTS, 2),
+  dMinNetEdgeCents: toNum(process.env.D_MIN_NET_EDGE_CENTS, 2),
   aObserveMaxTotalCents: toNum(process.env.A_OBSERVE_MAX_TOTAL_CENTS, 100),
   aTradeMaxTotalCents: toNum(process.env.A_TRADE_MAX_TOTAL_CENTS, 99),
   aMicroSharesPerTrade: toNum(process.env.A_MICRO_SHARES_PER_TRADE, 5),

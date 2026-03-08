@@ -61,8 +61,8 @@ function rebalance(pos, cand) {
   const age = tickNo - pos.openTick;
   const hedgePrice = pos.side === 0 ? cand.p1 : cand.p0;
   const total = pos.entryPriceCents + hedgePrice;
-  const strictMax = 101;
-  const dynamicMax = Math.min(104, strictMax + Math.floor(age / 4));
+  const strictMax = Math.min(101, 100 - config.dMinNetEdgeCents);
+  const dynamicMax = strictMax; // disable relaxed urgency hedges that lock losses
   const remaining = Math.max(0, pos.totalShares - pos.hedgedShares);
 
   if (total <= strictMax) {
@@ -75,7 +75,7 @@ function rebalance(pos, cand) {
     return { ok: true, qty, total, urgent: true, dynamicMax };
   }
 
-  if (age >= config.dMaxExposureTicks) {
+  if (age >= config.dMaxExposureTicks && total <= 100) {
     pos.hedgedShares += remaining;
     return { ok: true, qty: remaining, total, forced: true, closeAll: true, dynamicMax };
   }
@@ -142,7 +142,8 @@ async function main() {
     dMaxNewEntriesPerTick: config.dMaxNewEntriesPerTick,
     dMinEntryPriceCents: config.dMinEntryPriceCents,
     dMaxEntryPriceCents: config.dMaxEntryPriceCents,
-    dMaxExposureTicks: config.dMaxExposureTicks
+    dMaxExposureTicks: config.dMaxExposureTicks,
+    dMinNetEdgeCents: config.dMinNetEdgeCents
   });
   await tick();
   if (process.env.RUN_ONCE === 'true') return;
