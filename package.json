@@ -25,7 +25,9 @@
     "report:pnl": "node src/reportBankrollPnl.js",
     "report:decision": "node src/hourlyDecisionReport.js",
     "report:trading-md": "node src/updateTradingMd.js",
-    "report:notion-sync": "node src/syncTradingNotion.js"
+    "report:notion-sync": "node src/syncTradingNotion.js",
+    "start:script:a2": "node src/scriptA2.js",
+    "start:script:a2:once": "RUN_ONCE=true node src/scriptA2.js"
   },
   "engines": {
     "node": ">=20"
