@@ -68,16 +68,18 @@ function evalScriptE() {
   let pnl = 0;
   let counted = 0;
   for (const t of trades) {
+    if (t.askPriceEur == null || t.bidPriceEur == null) continue; // ignore legacy malformed events
+    if (Number(t.spreadCents || 0) > 20) continue;
     const qty = Number(t.qty || 0);
-    const spreadCents = Number(t.spreadCents || 0);
-    const perShareCost = (100 - spreadCents) / 100;
-    const maxQty = Math.max(0, Math.floor(bankrollEur / Math.max(0.01, perShareCost)));
+    const ask = Number(t.askPriceEur || 0.5);
+    const perShareCost = Math.max(0.01, ask);
+    const maxQty = Math.max(0, Math.floor(bankrollEur / perShareCost));
     const q = Math.min(qty, maxQty);
     if (!q) continue;
     pnl += Number(t.netPerShareEur || 0) * q;
     counted += 1;
   }
-  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_e_trade events' };
+  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_e_trade events (ask-price bankroll constrained)' };
 }
 
 function evalScriptB() {

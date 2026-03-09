@@ -45,9 +45,12 @@ function computeScriptEPnl(bankrollEur = 5) {
   let pnl = 0;
   let counted = 0;
   for (const t of trades) {
+    if (t.askPriceEur == null || t.bidPriceEur == null) continue; // ignore legacy malformed events
+    if (Number(t.spreadCents || 0) > 20) continue;
     const qty = Number(t.qty || 0);
-    const perShareCost = (100 - Number(t.spreadCents || 0)) / 100;
-    const maxQty = Math.max(0, Math.floor(bankrollEur / Math.max(0.01, perShareCost)));
+    const ask = Number(t.askPriceEur || 0.5);
+    const perShareCost = Math.max(0.01, ask);
+    const maxQty = Math.max(0, Math.floor(bankrollEur / perShareCost));
     const q = Math.min(qty, maxQty);
     if (!q) continue;
     pnl += Number(t.netPerShareEur || 0) * q;

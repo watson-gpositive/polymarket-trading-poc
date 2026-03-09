@@ -63,12 +63,15 @@ async function tick() {
 
       const spread = Math.round((b.ask - b.bid) * 100);
       if (spread < config.eMinSpreadCents) continue;
+      if (spread > 20) continue; // reject unrealistic/wide books
+      if (b.bid <= 0 || b.ask >= 1) continue; // reject edge quotes near boundaries
 
       const qty = Math.min(config.eTargetQty, Math.floor(Math.min(b.bidQty, b.askQty)));
       if (qty <= 0) continue;
 
-      const grossPerShare = (spread / 100);
-      const feePerShare = 0.02; // conservative fee buffer
+      // conservative maker capture assumption: only half spread captured
+      const grossPerShare = (spread / 100) * 0.5;
+      const feePerShare = 0.02; // fee + friction buffer
       const netPerShare = grossPerShare - feePerShare;
       const netCents = Math.round(netPerShare * 100);
       if (netCents < config.eMinNetEdgeCents) continue;
@@ -83,6 +86,8 @@ async function tick() {
         marketId: m.id,
         title: m.title,
         outcome: o.name,
+        bidPriceEur: Number(b.bid.toFixed(4)),
+        askPriceEur: Number(b.ask.toFixed(4)),
         spreadCents: spread,
         qty,
         netPerShareEur: Number(netPerShare.toFixed(4)),

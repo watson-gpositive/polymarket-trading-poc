@@ -1,5 +1,5 @@
 {
-  "ts": "2026-03-08T20:12:09.512Z",
+  "ts": "2026-03-09T07:03:34.008Z",
   "assumptions": {
     "bankrollEur": 5,
     "feePct": 2,
@@ -16,10 +16,10 @@
     "note": "from script_a2_trade events"
   },
   "scriptB": {
-    "tradesCounted": 30,
-    "totalCostEur": 137.52,
-    "totalPayoutEur": 134.26,
-    "pnlEur": -3.26,
+    "tradesCounted": 0,
+    "totalCostEur": 0,
+    "totalPayoutEur": 0,
+    "pnlEur": 0,
     "note": "estimated from inventory_hedge events"
   },
   "scriptC": {
@@ -29,14 +29,14 @@
     "pnlEur": 0
   },
   "scriptE": {
-    "tradesCounted": 5,
-    "pnlEur": 48.4,
-    "note": "from script_e_trade events"
+    "tradesCounted": 0,
+    "pnlEur": 0,
+    "note": "from script_e_trade events (ask-price bankroll constrained)"
   },
   "scriptD": {
-    "tradesCounted": 29,
-    "totalCostEur": 128.68,
-    "totalPayoutEur": 125.44,
-    "pnlEur": -3.24
+    "tradesCounted": 0,
+    "totalCostEur": 0,
+    "totalPayoutEur": 0,
+    "pnlEur": 0
   }
 }
