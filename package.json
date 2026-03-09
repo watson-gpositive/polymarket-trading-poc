@@ -29,7 +29,11 @@
     "start:script:a2": "node src/scriptA2.js",
     "start:script:a2:once": "RUN_ONCE=true node src/scriptA2.js",
     "start:script:e": "node src/scriptE.js",
-    "start:script:e:once": "RUN_ONCE=true node src/scriptE.js"
+    "start:script:e:once": "RUN_ONCE=true node src/scriptE.js",
+    "start:script:f": "node src/scriptF.js",
+    "start:script:f:once": "RUN_ONCE=true node src/scriptF.js",
+    "start:script:g": "node src/scriptG.js",
+    "start:script:g:once": "RUN_ONCE=true node src/scriptG.js"
   },
   "engines": {
     "node": ">=20"

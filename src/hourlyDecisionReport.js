@@ -59,6 +59,32 @@ function computeScriptEPnl(bankrollEur = 5) {
   return { trades: counted, pnlEur: Number(pnl.toFixed(4)) };
 }
 
+function computeScriptFPnl(bankrollEur = 5) {
+  const trades = rows.filter(r => r.type === 'script_f_trade');
+  let pnl = 0, counted = 0;
+  for (const t of trades) {
+    const qty = Number(t.qty || 0);
+    const q = Math.min(qty, Math.max(0, Math.floor(bankrollEur / 0.5)));
+    if (!q) continue;
+    pnl += Number(t.netPerShareEur || 0) * q;
+    counted += 1;
+  }
+  return { trades: counted, pnlEur: Number(pnl.toFixed(4)) };
+}
+
+function computeScriptGPnl(bankrollEur = 5) {
+  const trades = rows.filter(r => r.type === 'script_g_trade');
+  let pnl = 0, counted = 0;
+  for (const t of trades) {
+    const qty = Number(t.qty || 0);
+    const q = Math.min(qty, Math.max(0, Math.floor(bankrollEur / 0.5)));
+    if (!q) continue;
+    pnl += Number(t.netPerShareEur || 0) * q;
+    counted += 1;
+  }
+  return { trades: counted, pnlEur: Number(pnl.toFixed(4)) };
+}
+
 function computeScriptBBankrollPnl(bankrollEur = 5, feePct = 2) {
   const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
   let cost = 0;
@@ -183,6 +209,8 @@ const report = {
     scriptC: { ...compare.scriptC, closureRate: computeClosureRate('script_c') },
     scriptD: { ...compare.scriptD, closureRate: computeClosureRate('script_d') },
     scriptE: compare.scriptE,
+    scriptF: compare.scriptF,
+    scriptG: compare.scriptG,
   },
   pnl5: {
     scriptA: computeScriptAEstimate(5, 2),
@@ -190,7 +218,9 @@ const report = {
     scriptB: computeScriptBBankrollPnl(5, 2),
     scriptC: computeBankrollPnl('script_c', 5, 2),
     scriptD: computeBankrollPnl('script_d', 5, 2),
-    scriptE: computeScriptEPnl(5)
+    scriptE: computeScriptEPnl(5),
+    scriptF: computeScriptFPnl(5),
+    scriptG: computeScriptGPnl(5)
   },
   pnl50: {
     scriptA: computeScriptAEstimate(50, 2),
@@ -198,7 +228,9 @@ const report = {
     scriptB: computeScriptBBankrollPnl(50, 2),
     scriptC: computeBankrollPnl('script_c', 50, 2),
     scriptD: computeBankrollPnl('script_d', 50, 2),
-    scriptE: computeScriptEPnl(50)
+    scriptE: computeScriptEPnl(50),
+    scriptF: computeScriptFPnl(50),
+    scriptG: computeScriptGPnl(50)
   },
   pnl500: {
     scriptA: computeScriptAEstimate(500, 2),
@@ -206,7 +238,9 @@ const report = {
     scriptB: computeScriptBBankrollPnl(500, 2),
     scriptC: computeBankrollPnl('script_c', 500, 2),
     scriptD: computeBankrollPnl('script_d', 500, 2),
-    scriptE: computeScriptEPnl(500)
+    scriptE: computeScriptEPnl(500),
+    scriptF: computeScriptFPnl(500),
+    scriptG: computeScriptGPnl(500)
   },
   exposure: { scriptC: computeUnhedgedMinutes('script_c'), scriptD: computeUnhedgedMinutes('script_d') },
 };
@@ -222,7 +256,7 @@ const summaryLines = [
   `  meaning: πόσο συχνά ένα entry καταφέρνει να κλείσει hedge (υψηλότερο = πιο ασφαλές).`,
   `KPI 2 Urgent hedge share: C=${(report.compare.scriptC?.urgentHedgeShare ?? 0).toFixed(3)} D=${(report.compare.scriptD?.urgentHedgeShare ?? 0).toFixed(3)}`,
   `  meaning: πόσα hedges έγιναν "στο όριο" (χαμηλότερο = καλύτερη ποιότητα execution).`,
-  `KPI 3 Bankroll PnL (€5/€50/€500): A=${report.pnl5.scriptA.pnlEur}/${report.pnl50.scriptA.pnlEur}/${report.pnl500.scriptA.pnlEur} A2=${report.pnl5.scriptA2.pnlEur}/${report.pnl50.scriptA2.pnlEur}/${report.pnl500.scriptA2.pnlEur} B=${report.pnl5.scriptB.pnlEur}/${report.pnl50.scriptB.pnlEur}/${report.pnl500.scriptB.pnlEur} C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur} E=${report.pnl5.scriptE.pnlEur}/${report.pnl50.scriptE.pnlEur}/${report.pnl500.scriptE.pnlEur}`,
+  `KPI 3 Bankroll PnL (€5/€50/€500): A=${report.pnl5.scriptA.pnlEur}/${report.pnl50.scriptA.pnlEur}/${report.pnl500.scriptA.pnlEur} A2=${report.pnl5.scriptA2.pnlEur}/${report.pnl50.scriptA2.pnlEur}/${report.pnl500.scriptA2.pnlEur} B=${report.pnl5.scriptB.pnlEur}/${report.pnl50.scriptB.pnlEur}/${report.pnl500.scriptB.pnlEur} C=${report.pnl5.scriptC.pnlEur}/${report.pnl50.scriptC.pnlEur}/${report.pnl500.scriptC.pnlEur} D=${report.pnl5.scriptD.pnlEur}/${report.pnl50.scriptD.pnlEur}/${report.pnl500.scriptD.pnlEur} E=${report.pnl5.scriptE.pnlEur}/${report.pnl50.scriptE.pnlEur}/${report.pnl500.scriptE.pnlEur} F=${report.pnl5.scriptF.pnlEur}/${report.pnl50.scriptF.pnlEur}/${report.pnl500.scriptF.pnlEur} G=${report.pnl5.scriptG.pnlEur}/${report.pnl50.scriptG.pnlEur}/${report.pnl500.scriptG.pnlEur}`,
   `  meaning: πόσο αποδίδει η ίδια λογική σε μικρό/μεσαίο/μεγαλύτερο κεφάλαιο.`,
   `KPI 4 Unhedged exposure time (avg min): C=${report.exposure.scriptC.avgMinutes ?? 'n/a'} D=${report.exposure.scriptD.avgMinutes ?? 'n/a'}`,
   `  meaning: πόση ώρα μένει ακάλυπτη θέση πριν κλείσει hedge (χαμηλότερο = λιγότερο ρίσκο).`,

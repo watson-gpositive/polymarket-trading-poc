@@ -1,9 +1,9 @@
 {
-  "ts": "2026-03-09T07:03:34.429Z",
+  "ts": "2026-03-09T16:33:22.046Z",
   "compare": {
     "scriptA": {
       "script": "A_strict_pair_arb",
-      "ticks": 367,
+      "ticks": 1135,
       "opportunities": 0,
       "depthChecked": 0,
       "tradableAfterDepth": 0,
@@ -14,21 +14,21 @@
     },
     "scriptA2": {
       "script": "A2_dual_threshold_micro",
-      "ticks": 366,
-      "observedCount": 188580,
+      "ticks": 1135,
+      "observedCount": 583459,
       "tradableCandidateCount": 0,
       "depthPass": 0,
       "simPass": 0,
       "accepted": 0,
       "microShares": 5,
-      "avgObservedPerTick": 515.2459016393443,
+      "avgObservedPerTick": 514.0607929515419,
       "avgTradableCandidatesPerTick": 0,
       "avgDepthPassPerTick": 0,
       "acceptanceRateFromObserved": 0
     },
     "scriptB": {
       "script": "B_inventory_dynamic_hedge",
-      "ticks": 367,
+      "ticks": 1134,
       "candidates": 0,
       "depthPassed": 0,
       "entries": 0,
@@ -40,46 +40,74 @@
     },
     "scriptC": {
       "script": "C_mimic_inventory_hedge",
-      "ticks": 366,
-      "candidates": 366,
-      "depthPassed": 366,
-      "entries": 0,
-      "hedges": 0,
+      "ticks": 1134,
+      "candidates": 1134,
+      "depthPassed": 574,
+      "entries": 1,
+      "hedges": 1,
       "urgentHedges": 0,
       "openCountLast": 0,
       "fullyHedgedLast": 1,
       "avgCandidatesPerTick": 1,
-      "avgDepthPassedPerTick": 1,
+      "avgDepthPassedPerTick": 0.5061728395061729,
+      "hedgeRatePerEntry": 1,
       "urgentHedgeShare": 0,
-      "closureRate": 0
+      "closureRate": 1
     },
     "scriptD": {
       "script": "D_capped_multi_category_hedge",
-      "ticks": 366,
-      "candidates": 15381,
-      "depthPassed": 732,
-      "entries": 0,
-      "hedges": 0,
+      "ticks": 1134,
+      "candidates": 48101,
+      "depthPassed": 1853,
+      "entries": 16,
+      "hedges": 2,
       "urgentHedges": 0,
-      "skippedByCap": 14649,
+      "skippedByCap": 45642,
       "openCountLast": 14,
       "fullyHedgedLast": 2,
-      "avgCandidatesPerTick": 42.02459016393443,
-      "avgDepthPassedPerTick": 2,
+      "avgCandidatesPerTick": 42.41710758377425,
+      "avgDepthPassedPerTick": 1.6340388007054674,
+      "hedgeRatePerEntry": 0.125,
       "urgentHedgeShare": 0,
-      "closureRate": 0
+      "closureRate": 0.125
     },
     "scriptE": {
       "script": "E_maker_first",
-      "ticks": 367,
-      "scanned": 1835,
-      "candidates": 1835,
-      "executed": 1835,
-      "tradesTodayLast": 4200,
-      "realizedPnlEurLast": 40656,
-      "avgScannedPerTick": 5,
-      "avgCandidatesPerTick": 5,
-      "avgExecutedPerTick": 5
+      "ticks": 1133,
+      "scanned": 566500,
+      "candidates": 0,
+      "executed": 0,
+      "tradesTodayLast": 0,
+      "realizedPnlEurLast": 0,
+      "avgScannedPerTick": 500,
+      "avgCandidatesPerTick": 0,
+      "avgExecutedPerTick": 0
+    },
+    "scriptF": {
+      "script": "F_event_driven",
+      "ticks": 2,
+      "scanned": 0,
+      "candidates": 0,
+      "executed": 0,
+      "tradesTodayLast": 0,
+      "realizedPnlEurLast": 0,
+      "avgScannedPerTick": 0,
+      "avgCandidatesPerTick": 0,
+      "avgExecutedPerTick": 0
+    },
+    "scriptG": {
+      "script": "G_cross_market_mispricing",
+      "ticks": 2,
+      "groups": 1000,
+      "scannedGroups": 0,
+      "candidates": 0,
+      "executed": 0,
+      "tradesTodayLast": 0,
+      "realizedPnlEurLast": 0,
+      "avgGroupsPerTick": 500,
+      "avgScannedGroupsPerTick": 0,
+      "avgCandidatesPerTick": 0,
+      "avgExecutedPerTick": 0
     }
   },
   "pnl5": {
@@ -97,14 +125,22 @@
       "pnlEur": 0
     },
     "scriptC": {
-      "trades": 0,
-      "pnlEur": 0
+      "trades": 1,
+      "pnlEur": -0.1
     },
     "scriptD": {
+      "trades": 2,
+      "pnlEur": -0.2
+    },
+    "scriptE": {
       "trades": 0,
       "pnlEur": 0
     },
-    "scriptE": {
+    "scriptF": {
+      "trades": 0,
+      "pnlEur": 0
+    },
+    "scriptG": {
       "trades": 0,
       "pnlEur": 0
     }
@@ -124,14 +160,22 @@
       "pnlEur": 0
     },
     "scriptC": {
-      "trades": 0,
-      "pnlEur": 0
+      "trades": 1,
+      "pnlEur": -0.1
     },
     "scriptD": {
+      "trades": 2,
+      "pnlEur": -2
+    },
+    "scriptE": {
       "trades": 0,
       "pnlEur": 0
     },
-    "scriptE": {
+    "scriptF": {
+      "trades": 0,
+      "pnlEur": 0
+    },
+    "scriptG": {
       "trades": 0,
       "pnlEur": 0
     }
@@ -151,32 +195,40 @@
       "pnlEur": 0
     },
     "scriptC": {
-      "trades": 0,
-      "pnlEur": 0
+      "trades": 1,
+      "pnlEur": -0.1
     },
     "scriptD": {
+      "trades": 2,
+      "pnlEur": -2
+    },
+    "scriptE": {
       "trades": 0,
       "pnlEur": 0
     },
-    "scriptE": {
+    "scriptF": {
+      "trades": 0,
+      "pnlEur": 0
+    },
+    "scriptG": {
       "trades": 0,
       "pnlEur": 0
     }
   },
   "exposure": {
     "scriptC": {
-      "closedCount": 0,
-      "avgMinutes": null,
-      "maxMinutes": null
+      "closedCount": 1,
+      "avgMinutes": 0.51,
+      "maxMinutes": 0.51
     },
     "scriptD": {
-      "closedCount": 0,
-      "avgMinutes": null,
-      "maxMinutes": null
+      "closedCount": 2,
+      "avgMinutes": 5.99,
+      "maxMinutes": 5.99
     }
   },
   "suggestions": [
-    "Script D έχει καλύτερο ή ίσο hedge closure rate από το C.",
-    "Με bankroll €5, το Script D δείχνει καλύτερο ή ίσο αποτέλεσμα από το C."
+    "Script C έχει καλύτερο hedge closure rate από το D.",
+    "Με bankroll €5, το Script C είναι πιο ασφαλές από το D προς το παρόν."
   ]
 }

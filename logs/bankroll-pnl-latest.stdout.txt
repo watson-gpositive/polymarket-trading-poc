@@ -3,7 +3,7 @@
 > node src/reportBankrollPnl.js 5 2
 
 {
-  "ts": "2026-03-09T07:03:34.008Z",
+  "ts": "2026-03-09T16:33:21.556Z",
   "assumptions": {
     "bankrollEur": 5,
     "feePct": 2,
@@ -27,20 +27,30 @@
     "note": "estimated from inventory_hedge events"
   },
   "scriptC": {
-    "tradesCounted": 0,
-    "totalCostEur": 0,
-    "totalPayoutEur": 0,
-    "pnlEur": 0
+    "tradesCounted": 1,
+    "totalCostEur": 5,
+    "totalPayoutEur": 4.9,
+    "pnlEur": -0.1
+  },
+  "scriptD": {
+    "tradesCounted": 2,
+    "totalCostEur": 10,
+    "totalPayoutEur": 9.8,
+    "pnlEur": -0.2
   },
   "scriptE": {
     "tradesCounted": 0,
     "pnlEur": 0,
     "note": "from script_e_trade events (ask-price bankroll constrained)"
   },
-  "scriptD": {
+  "scriptF": {
     "tradesCounted": 0,
-    "totalCostEur": 0,
-    "totalPayoutEur": 0,
-    "pnlEur": 0
+    "pnlEur": 0,
+    "note": "from script_f_trade events"
+  },
+  "scriptG": {
+    "tradesCounted": 0,
+    "pnlEur": 0,
+    "note": "from script_g_trade events"
   }
 }

@@ -82,6 +82,34 @@ function evalScriptE() {
   return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_e_trade events (ask-price bankroll constrained)' };
 }
 
+function evalScriptF() {
+  const trades = rows.filter(r => r.type === 'script_f_trade');
+  let pnl = 0, counted = 0;
+  for (const t of trades) {
+    const qty = Number(t.qty || 0);
+    const maxQty = Math.max(0, Math.floor(bankrollEur / 0.5));
+    const q = Math.min(qty, maxQty);
+    if (!q) continue;
+    pnl += Number(t.netPerShareEur || 0) * q;
+    counted += 1;
+  }
+  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_f_trade events' };
+}
+
+function evalScriptG() {
+  const trades = rows.filter(r => r.type === 'script_g_trade');
+  let pnl = 0, counted = 0;
+  for (const t of trades) {
+    const qty = Number(t.qty || 0);
+    const maxQty = Math.max(0, Math.floor(bankrollEur / 0.5));
+    const q = Math.min(qty, maxQty);
+    if (!q) continue;
+    pnl += Number(t.netPerShareEur || 0) * q;
+    counted += 1;
+  }
+  return { tradesCounted: counted, pnlEur: Number(pnl.toFixed(4)), note: 'from script_g_trade events' };
+}
+
 function evalScriptB() {
   const hedges = rows.filter(r => r.type === 'inventory_hedge' && Number(r.shares || 0) > 0);
   let cost = 0;
@@ -143,8 +171,10 @@ const report = {
   scriptA2: evalScriptA2(),
   scriptB: evalScriptB(),
   scriptC: evalFromHedges('script_c'),
+  scriptD: evalFromHedges('script_d'),
   scriptE: evalScriptE(),
-  scriptD: evalFromHedges('script_d')
+  scriptF: evalScriptF(),
+  scriptG: evalScriptG()
 };
 
 const out = path.resolve(process.cwd(), 'logs', 'bankroll-pnl-latest.json');

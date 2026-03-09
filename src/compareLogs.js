@@ -17,6 +17,8 @@ const B = { script: 'B_inventory_dynamic_hedge', ticks: 0, candidates: 0, depthP
 const C = { script: 'C_mimic_inventory_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, openCountLast: 0, fullyHedgedLast: 0 };
 const D = { script: 'D_capped_multi_category_hedge', ticks: 0, candidates: 0, depthPassed: 0, entries: 0, hedges: 0, urgentHedges: 0, skippedByCap: 0, openCountLast: 0, fullyHedgedLast: 0 };
 const E = { script: 'E_maker_first', ticks: 0, scanned: 0, candidates: 0, executed: 0, tradesTodayLast: 0, realizedPnlEurLast: 0 };
+const F = { script: 'F_event_driven', ticks: 0, scanned: 0, candidates: 0, executed: 0, tradesTodayLast: 0, realizedPnlEurLast: 0 };
+const G = { script: 'G_cross_market_mispricing', ticks: 0, groups: 0, scannedGroups: 0, candidates: 0, executed: 0, tradesTodayLast: 0, realizedPnlEurLast: 0 };
 
 let firstTs = null;
 let lastTs = null;
@@ -80,6 +82,23 @@ for (const r of rows) {
     E.tradesTodayLast = Number(r.tradesToday || 0);
     E.realizedPnlEurLast = Number(r.realizedPnlEur || 0);
   }
+  if (r.type === 'script_f_tick_summary') {
+    F.ticks += 1;
+    F.scanned += Number(r.scanned || 0);
+    F.candidates += Number(r.candidates || 0);
+    F.executed += Number(r.executed || 0);
+    F.tradesTodayLast = Number(r.tradesToday || 0);
+    F.realizedPnlEurLast = Number(r.realizedPnlEur || 0);
+  }
+  if (r.type === 'script_g_tick_summary') {
+    G.ticks += 1;
+    G.groups += Number(r.groups || 0);
+    G.scannedGroups += Number(r.scannedGroups || 0);
+    G.candidates += Number(r.candidates || 0);
+    G.executed += Number(r.executed || 0);
+    G.tradesTodayLast = Number(r.tradesToday || 0);
+    G.realizedPnlEurLast = Number(r.realizedPnlEur || 0);
+  }
 }
 
 const withAvg = s => ({
@@ -112,6 +131,19 @@ const report = {
     avgScannedPerTick: E.ticks ? E.scanned / E.ticks : 0,
     avgCandidatesPerTick: E.ticks ? E.candidates / E.ticks : 0,
     avgExecutedPerTick: E.ticks ? E.executed / E.ticks : 0,
+  },
+  scriptF: {
+    ...F,
+    avgScannedPerTick: F.ticks ? F.scanned / F.ticks : 0,
+    avgCandidatesPerTick: F.ticks ? F.candidates / F.ticks : 0,
+    avgExecutedPerTick: F.ticks ? F.executed / F.ticks : 0,
+  },
+  scriptG: {
+    ...G,
+    avgGroupsPerTick: G.ticks ? G.groups / G.ticks : 0,
+    avgScannedGroupsPerTick: G.ticks ? G.scannedGroups / G.ticks : 0,
+    avgCandidatesPerTick: G.ticks ? G.candidates / G.ticks : 0,
+    avgExecutedPerTick: G.ticks ? G.executed / G.ticks : 0,
   }
 };
 
